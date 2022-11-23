@@ -10,8 +10,8 @@ $database = "u906128965_db_public";
 
 $answer = new stdClass();
 
-$answer->message = null;
-$answer->value = null;
+$answer->message = "";
+$answer->value = "";
 // $connection = null;
 
 $inputs = evaluateInput(json_decode(file_get_contents('php://input')));
