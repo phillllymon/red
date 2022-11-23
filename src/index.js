@@ -1,11 +1,11 @@
-console.log("hello world");
+console.log("hello wonderful world");
 
-fetch("https://graffiti.red/API", {
+fetch("https://graffiti.red/API/public/", {
     method: "POST",
     body: JSON.stringify({
-        action: "createUser",
-        username: "poop",
-        pass: "password123"
+        action: "set",
+        username: "hello",
+        name: "world"
     })
 }).then((res) => {
 

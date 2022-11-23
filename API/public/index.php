@@ -75,7 +75,7 @@ echo json_encode($answer);
 // ---- helpers below ----
 function evaluateInput($data) {
     // make sure mode is POST
-    if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    // if ($_SERVER["REQUEST_METHOD"] != "POST") {
         if ($data->action == "retrieve") {
             if (checkTypes([
                 [$data->name, "string"]
@@ -120,10 +120,10 @@ function evaluateInput($data) {
             // echo "action must be set or retrieve";
             die();
         }
-    } else {
-        echo "request mode must be POST";
-        die();
-    }
+    // } else {
+    //     echo "request mode must be POST";
+    //     die();
+    // }
 }
 
 function checkTypes($valueTypePair) {
