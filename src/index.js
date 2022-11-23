@@ -25,3 +25,5 @@ fetch("https://graffiti.red/API", {
     console.log("ERROR");
     console.log(err.message);
 });
+
+console.log("Well....here I am.");
