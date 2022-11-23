@@ -1,0 +1,27 @@
+{
+  "dependencies": {
+    "webpack": "^5.75.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.0.0"
+  },
+  "name": "redsite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phillllymon/red.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phillllymon/red/issues"
+  },
+  "homepage": "https://github.com/phillllymon/red#readme",
+  "description": ""
+}
