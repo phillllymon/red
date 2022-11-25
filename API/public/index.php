@@ -29,6 +29,7 @@ try {
 }
 
 // TEST OUTPUT
+$answer->value=$inputs;
 echo json_encode($answer);
 die();
 
