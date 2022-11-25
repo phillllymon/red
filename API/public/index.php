@@ -39,7 +39,7 @@ try {
     
 
     $connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
-    $testReturn->status = "connected successfully yay!";
+    $testReturn->status = "connected successfully woohoo!";
     // echo json_encode($testReturn);
     // die();
 
