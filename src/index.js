@@ -1,6 +1,7 @@
 console.log("hello wonderful world");
 
 fetch("https://graffiti.red/API/public/", {
+// fetch("http://localhost:8000/API/public/", {
     method: "POST",
     body: JSON.stringify({
         action: "set",
