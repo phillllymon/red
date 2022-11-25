@@ -8,54 +8,13 @@ $username = "u906128965_worker";
 $password = "5>Lw7Jw~";
 $database = "u906128965_db_public";
 
-// test creds
-// $hostname = "localhost:9000";
-// $username = "sa";
-// $password = "reallyStrongPwd123";
-// $database = "testDB";
-
 $answer = new stdClass();
 
 $answer->message = "";
 $answer->value = "";
 // $connection = null;
 
-// $inputs = evaluateInput(json_decode(file_get_contents('php://input')));
-
-// testing only
-$goodData = file_get_contents('php://input');
-$phpObj = json_decode($goodData);
-
-$testReturn = new stdClass();
-$testReturn->change = "good";
-$testReturn->yourAction = $phpObj->action;
-
-// $connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
-
-// echo json_encode($testReturn);
-// die();
-
-try {
-    
-
-    $connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
-    $testReturn->status = "connected successfully woohoo!";
-    // echo json_encode($testReturn);
-    // die();
-
-} catch (PDOException $pe) {
-
-    // bad here
-    // $testReturn->error = $pe->errorInfo[2];
-    $testReturn->error = $pe;
-    echo json_encode($testReturn);
-    die();
-
-}
-
-echo json_encode($testReturn);
-die();
-// end testing
+$inputs = evaluateInput(json_decode(file_get_contents('php://input')));
 
 if (!isset($inputs->action)) {
     echo ("no action specified");
@@ -64,9 +23,15 @@ if (!isset($inputs->action)) {
 
 try {
     $connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+    $answer->message = "connected successfully";
 } catch (PDOException $pe) {
     $answer->message = "database error";
 }
+
+// TEST OUTPUT
+echo json_encode($answer);
+die();
+
 
 $getStatement = "SELECT * FROM public WHERE name=?";
 // $existingValues = null;
