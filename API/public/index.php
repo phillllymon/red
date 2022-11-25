@@ -3,16 +3,16 @@
 header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
 
-// $hostname = "localhost";
-// $username = "u906128965_worker";
-// $password = "5>Lw7Jw~";
-// $database = "u906128965_db_public";
+$hostname = "localhost";
+$username = "u906128965_worker";
+$password = "5>Lw7Jw~";
+$database = "u906128965_db_public";
 
 // test creds
-$hostname = "localhost:9000";
-$username = "sa";
-$password = "reallyStrongPwd123";
-$database = "testDB";
+// $hostname = "localhost:9000";
+// $username = "sa";
+// $password = "reallyStrongPwd123";
+// $database = "testDB";
 
 $answer = new stdClass();
 
