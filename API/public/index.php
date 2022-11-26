@@ -3,6 +3,11 @@
 header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
 
+require("../logger/logger.php");
+
+logIncomingRequest(json_decode(file_get_contents('php://input')));
+
+
 $hostname = "localhost";
 $username = "u906128965_worker";
 $password = "5>Lw7Jw~";
