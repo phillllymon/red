@@ -42,9 +42,6 @@ try {
     $answer->message = "database error";
 }
 
-// echo json_encode($existingValues);
-// die();
-
 if (count($existingValues) > 1) {
     $answer->message = "ERROR multiple values in database";
     echo json_encode($answer);
@@ -63,7 +60,6 @@ if ($inputs->action == "retrieve") {
 } else if (count($existingValues) == 1){
     $setStatement = "UPDATE public SET value=? WHERE name=?";
     try {
-        // $connection->prepare($setStatement)->execute([$inputs->value, $inputs->name]);
 
         $queryObj = $connection->prepare($setStatement);
         $queryObj->execute([$inputs->value, $inputs->name]);

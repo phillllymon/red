@@ -4,9 +4,9 @@ fetch("https://graffiti.red/API/public/", {
 // fetch("http://localhost:8000/API/public/", {
     method: "POST",
     body: JSON.stringify({
-        action: "set",
-        name: "hello",
-        value: "world",
+        action: "retrieve",
+        name: "howdoigetoutofhere",
+        // value: "dunno, sir",
     })
 }).then((res) => {
 
