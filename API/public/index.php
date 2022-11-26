@@ -5,7 +5,7 @@ header("Access-Control-Allow-Origin: *");
 
 require("../logger/logger.php");
 
-$logFile = ".../logs/log_public.txt";
+$logFile = "../logs/log_public.txt";
 logIncomingRequest(json_decode(file_get_contents('php://input')), $logFile);
 
 
