@@ -105,7 +105,7 @@ function evaluateInput($data) {
         ])) {
             // SUCCESS
             $usefulInput = new stdClass();
-            $usefulInput->action = "retrieve";
+            $usefulInput->action = "set";
             $usefulInput->name = $data->name;
             $usefulInput->value = $data->value;
 
