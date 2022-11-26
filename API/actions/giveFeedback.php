@@ -11,11 +11,24 @@ function giveFeedback($connection, $inputs) {
 
     $reply = new stdClass();
 
-    $reply->status = "fail";
-    $reply->message = "action not yet implemented";
+    if (!isset($inputs->email)) {
+        $inputs->email = "";
+    }
 
-    //temp
-    $reply->inputs = $inputs;
+    if (!isset($inputs->username)) {
+        $inputs->username = "";
+    }
+
+    $insertStatement = "INSERT INTO feedback (feedback, username, email) VALUES (?, ?, ?)";
+    try {
+        $queryObj = $connection->prepare($insertStatement);
+        $queryObj->execute([$inputs->feedback, $inputs->username, $inputs->email]);
+        $reply->status = "success";
+        $reply->message = "feedback submitted";
+    } catch (PDOException $pe) {
+        $reply->status = "fail";
+        $reply->message = "error submitting feedback";
+    }
 
     return $reply;
 }
