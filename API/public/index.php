@@ -6,8 +6,7 @@ header("Access-Control-Allow-Origin: *");
 require("../logger/logger.php");
 
 $logFile = "../logs/log_public.txt";
-logIncomingRequest(file_get_contents('php://input'), $logFile);
-logIncomingRequest(json_encode($_SERVER), $logFile);
+logIncomingRequest(file_get_contents('php://input').json_encode($_SERVER), $logFile);
 
 
 $hostname = "localhost";
