@@ -42,8 +42,8 @@ try {
     $answer->message = "database error";
 }
 
-echo json_encode($existingValues);
-die();
+// echo json_encode($existingValues);
+// die();
 
 if (count($existingValues) > 1) {
     $answer->message = "ERROR multiple values in database";
@@ -63,7 +63,10 @@ if ($inputs->action == "retrieve") {
 } else if (count($existingValues) == 1){
     $setStatement = "UPDATE public SET value=? WHERE name=?";
     try {
-        $connection->prepare($setStatement)->execute([$inputs->value, $inputs->name]);
+        // $connection->prepare($setStatement)->execute([$inputs->value, $inputs->name]);
+
+        $queryObj = $connection->prepare($setStatement);
+        $queryObj->execute([$inputs->value, $inputs->name]);
     } catch (PDOException $pe) {
         $answer->message = "database error";
         die();
@@ -73,7 +76,9 @@ if ($inputs->action == "retrieve") {
 } else {
     $insertStatement = "INSERT INTO public (name, value) VALUES (?, ?)";
     try {
-        $connection->prepare($insertStatement)->execute([$inputs->value, $inputs->name]);
+
+        $queryObj = $connection->prepare($insertStatement);
+        $queryObj->execute([$inputs->name, $inputs->value]);
     } catch (PDOException $pe) {
         $answer->message = "database error";
         die();
