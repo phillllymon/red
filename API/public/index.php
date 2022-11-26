@@ -13,6 +13,11 @@ $answer = new stdClass();
 $answer->message = "";
 $answer->value = "";
 
+if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    echo "request mode must be POST";
+    die();
+}
+
 $inputs = evaluateInput(json_decode(file_get_contents('php://input')));
 
 if (!isset($inputs->action)) {
@@ -79,54 +84,38 @@ echo json_encode($answer);
 
 // ---- helpers below ----
 function evaluateInput($data) {
-    // make sure mode is POST
-    if ($_SERVER["REQUEST_METHOD"] != "POST") {
-        if ($data->action == "retrieve") {
-            if (checkTypes([
-                [$data->name, "string"]
-            ])) {
-                // SUCCESS
-                $usefulInput = new stdClass();
-                $usefulInput->action = "retrieve";
-                $usefulInput->name = $data->name;
+    if ($data->action == "retrieve") {
+        if (checkTypes([
+            [$data->name, "string"]
+        ])) {
+            // SUCCESS
+            $usefulInput = new stdClass();
+            $usefulInput->action = "retrieve";
+            $usefulInput->name = $data->name;
 
-                return $usefulInput;
-            } else {
-                echo "invalid";
-                die();
-            }
-        } else if ($data->action == "set") {
-            if (checkTypes([
-                [$data->name, "string"],
-                [$data->value, "string"]
-            ])) {
-                // SUCCESS
-                $usefulInput = new stdClass();
-                $usefulInput->action = "retrieve";
-                $usefulInput->name = $data->name;
-                $usefulInput->value = $data->value;
-
-                return $usefulInput;
-            } else {
-                echo "invalid";
-                die();
-            }
+            return $usefulInput;
         } else {
+            echo "invalid";
+            die();
+        }
+    } else if ($data->action == "set") {
+        if (checkTypes([
+            [$data->name, "string"],
+            [$data->value, "string"]
+        ])) {
+            // SUCCESS
+            $usefulInput = new stdClass();
+            $usefulInput->action = "retrieve";
+            $usefulInput->name = $data->name;
+            $usefulInput->value = $data->value;
 
-            echo "jjj";
-            $myVar = file_get_contents('php://input');
-            $myOtherVar = json_decode($myVar);
-            if (isset($myVar)) {
-                echo $myOtherVar;
-            } else {
-                echo "no";
-            }
-            
-            // echo "action must be set or retrieve";
+            return $usefulInput;
+        } else {
+            echo "invalid";
             die();
         }
     } else {
-        echo "request mode must be POST";
+        echo "action must be set or retrieve";
         die();
     }
 }
