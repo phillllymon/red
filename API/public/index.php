@@ -28,11 +28,6 @@ try {
     $answer->message = "database error";
 }
 
-// TEST OUTPUT
-$answer->value=$inputs;
-echo json_encode($answer);
-die();
-
 
 $getStatement = "SELECT * FROM public WHERE name=?";
 // $existingValues = null;
@@ -41,6 +36,9 @@ try {
 } catch (PDOException $pe) {
     $answer->message = "database error";
 }
+
+echo json_encode($answer);
+die();
 
 if (count($existingValues) > 1) {
     $answer->message = "ERROR multiple values in database";
