@@ -5,7 +5,11 @@ header("Access-Control-Allow-Origin: *");
 
 require("../logger/logger.php");
 
-logIncomingRequest(json_decode(file_get_contents('php://input')));
+// logIncomingRequest(json_decode(file_get_contents('php://input')));
+
+$logFile = fopen("log_public.txt", "a") or die();
+    fwrite($logFile, "-------------------------------------------------\n");
+    fwrite($logFile, "sample data");
 
 
 $hostname = "localhost";
