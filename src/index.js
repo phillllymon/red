@@ -6,7 +6,7 @@ fetch("https://graffiti.red/API/public/", {
     body: JSON.stringify({
         action: "set",
         name: "hello",
-        value: "poop",
+        value: "world",
     })
 }).then((res) => {
 

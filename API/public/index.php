@@ -42,8 +42,8 @@ try {
     $answer->message = "database error";
 }
 
-echo json_encode($existingValues);
-die();
+// echo json_encode($existingValues);
+// die();
 
 if (count($existingValues) > 1) {
     $answer->message = "ERROR multiple values in database";
