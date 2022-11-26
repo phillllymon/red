@@ -55,6 +55,7 @@ if ($inputs->action == "retrieve") {
     } else {
         $answer->message = "not found";
         echo json_encode($answer);
+        die();
     }
 } else if (count($existingValues) === 1){
     $setStatement = "UPDATE public SET value=? WHERE name=?";
@@ -62,6 +63,7 @@ if ($inputs->action == "retrieve") {
         $connection->prepare($setStatement)->execute([$inputs->value, $inputs->name]);
     } catch (PDOException $pe) {
         $answer->message = "database error";
+        die();
     }
     $answer->message = "successfully updated";
     $answer->value = $inputs->value;
@@ -71,6 +73,7 @@ if ($inputs->action == "retrieve") {
         $connection->prepare($insertStatement)->execute([$inputs->value, $inputs->name]);
     } catch (PDOException $pe) {
         $answer->message = "database error";
+        die();
     }
     $answer->message = "successfully set new value";
     $answer->value = $inputs->value;
