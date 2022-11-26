@@ -32,7 +32,9 @@ try {
 $getStatement = "SELECT * FROM public WHERE name=?";
 // $existingValues = null;
 try {
-    $existingValues = $connection->prepare($getStatement)->execute([$inputs->name]);
+    $queryObj = $connection->prepare($getStatement);
+    $queryObj->execute([$inputs->name]);
+    $existingValues = $queryObj->fetchAll();
 } catch (PDOException $pe) {
     $answer->message = "database error";
 }
