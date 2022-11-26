@@ -1,6 +1,6 @@
 <?php
 
-function createUser() {
+function checkForPosts() {
     $reply = new stdClass();
 
     $reply->status = "fail";
