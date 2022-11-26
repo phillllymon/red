@@ -32,12 +32,12 @@ try {
 $getStatement = "SELECT * FROM public WHERE name=?";
 // $existingValues = null;
 try {
-    $connection->prepare($getStatement)->execute([$inputs->name]);
+    $existingValues = $connection->prepare($getStatement)->execute([$inputs->name]);
 } catch (PDOException $pe) {
     $answer->message = "database error";
 }
 
-echo json_encode($answer);
+echo json_encode($existingValues);
 die();
 
 if (count($existingValues) > 1) {
