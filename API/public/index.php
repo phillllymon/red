@@ -12,7 +12,6 @@ $answer = new stdClass();
 
 $answer->message = "";
 $answer->value = "";
-// $connection = null;
 
 $inputs = evaluateInput(json_decode(file_get_contents('php://input')));
 
@@ -30,7 +29,6 @@ try {
 
 
 $getStatement = "SELECT * FROM public WHERE name=?";
-// $existingValues = null;
 try {
     $queryObj = $connection->prepare($getStatement);
     $queryObj->execute([$inputs->name]);
@@ -82,7 +80,7 @@ echo json_encode($answer);
 // ---- helpers below ----
 function evaluateInput($data) {
     // make sure mode is POST
-    // if ($_SERVER["REQUEST_METHOD"] != "POST") {
+    if ($_SERVER["REQUEST_METHOD"] != "POST") {
         if ($data->action == "retrieve") {
             if (checkTypes([
                 [$data->name, "string"]
@@ -127,10 +125,10 @@ function evaluateInput($data) {
             // echo "action must be set or retrieve";
             die();
         }
-    // } else {
-    //     echo "request mode must be POST";
-    //     die();
-    // }
+    } else {
+        echo "request mode must be POST";
+        die();
+    }
 }
 
 function checkTypes($valueTypePair) {
