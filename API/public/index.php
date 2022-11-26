@@ -57,7 +57,7 @@ if ($inputs->action == "retrieve") {
         echo json_encode($answer);
         die();
     }
-} else if (count($existingValues) === 1){
+} else if (count($existingValues) == 1){
     $setStatement = "UPDATE public SET value=? WHERE name=?";
     try {
         $connection->prepare($setStatement)->execute([$inputs->value, $inputs->name]);
