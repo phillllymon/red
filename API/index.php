@@ -25,7 +25,7 @@ foreach($dealbreakers as $breaker) {
 $actionToTake = $inputs->action;
 
 // echo json_encode($inputs);
-echo json_encode(executeAction($actionToTake));
+echo json_encode(executeAction($actionToTake, $inputs));
 
 
 

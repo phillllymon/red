@@ -22,7 +22,7 @@ $availableActions = [
     "signUp"
 ];
 
-function executeAction($actionName) {
+function executeAction($actionName, $inputs) {
     try{
         $connection = connectToDatabase();
     } catch (PDOException $pe) {
@@ -33,21 +33,21 @@ function executeAction($actionName) {
     }
     switch ($actionName) {
         case "changePassword":
-            return changePassword($connection);
+            return changePassword($connection, $inputs);
         case "checkForPosts":
-            return checkForPosts($connection);    
+            return checkForPosts($connection, $inputs);    
         case "createPost":
-            return createPost($connection);
+            return createPost($connection, $inputs);
         case "getPosts":
-            return getPosts($connection);
+            return getPosts($connection, $inputs);
         case "giveFeedback":
-            return giveFeedback($connection);
+            return giveFeedback($connection, $inputs);
         case "logIn":
-            return logIn($connection);
+            return logIn($connection, $inputs);
         case "logOut":
-            return logOut($connection);
+            return logOut($connection, $inputs);
         case "signUp":
-            return signUp($connection);
+            return signUp($connection, $inputs);
     }
 }
 

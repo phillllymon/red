@@ -7,12 +7,15 @@ inputs: feedback [text], email [string]
 -status fail or success
 -message "feedback submitted" or "database error"
 */
-function giveFeedback($connection) {
+function giveFeedback($connection, $inputs) {
 
     $reply = new stdClass();
 
     $reply->status = "fail";
     $reply->message = "action not yet implemented";
+
+    //temp
+    $reply->inputs = $inputs;
 
     return $reply;
 }
