@@ -19,9 +19,17 @@ function giveFeedback($connection, $inputs) {
         $inputs->username = "";
     }
 
+    $hostname = "localhost";
+    $username = "u906128965_admin";
+    $password = "R*$1E=fr8~";
+    $database = "u906128965_db_graffiti";
+
+    $newConnect = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+
     $insertStatement = "INSERT INTO feedback (feedback, username, email) VALUES (?, ?, ?)";
     try {
-        $queryObj = $connection->prepare($insertStatement);
+        // $queryObj = $connection->prepare($insertStatement);
+        $queryObj = $newConnect->prepare($insertStatement);
         $queryObj->execute([$inputs->feedback, $inputs->username, $inputs->email]);
         $reply->status = "success";
         $reply->message = "feedback submitted";
