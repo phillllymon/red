@@ -3,6 +3,21 @@
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
+// TEST ONLY
+$hostname = "localhost";
+$username = "u906128965_admin";
+$password = "R*$1E=fr8~";
+$database = "u906128965_db_graffiti";
+
+$connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
+
+$queryObj = $newConnect->prepare($insertStatement);
+$queryObj->execute([$inputs->feedback, $inputs->username, $inputs->email]);
+
+echo "{success:'success'}";
+die();
+// END TEST
+
 require "helpers/sanitize.php";
 require "actions.php";
 
