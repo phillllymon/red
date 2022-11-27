@@ -12,7 +12,7 @@ $database = "u906128965_db_graffiti";
 $insertStatement = "INSERT INTO feedback (content, username, email) VALUES (?, ?, ?)";
 $connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
 
-$queryObj = $newConnect->prepare($insertStatement);
+$queryObj = $connection->prepare($insertStatement);
 $queryObj->execute(["this is great", "phillllymon", "poop@face.com"]);
 
 echo "{success:'success'}";
