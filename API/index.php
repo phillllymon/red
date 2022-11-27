@@ -13,7 +13,7 @@ $insertStatement = "INSERT INTO feedback (content, username, email) VALUES (?, ?
 $connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
 
 $queryObj = $newConnect->prepare($insertStatement);
-$queryObj->execute([$inputs->feedback, $inputs->username, $inputs->email]);
+$queryObj->execute(["this is great", "phillllymon", "poop@face.com"]);
 
 echo "{success:'success'}";
 die();
