@@ -9,6 +9,7 @@ $username = "u906128965_admin";
 $password = "R*$1E=fr8~";
 $database = "u906128965_db_graffiti";
 
+$insertStatement = "INSERT INTO feedback (content, username, email) VALUES (?, ?, ?)";
 $connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
 
 $queryObj = $newConnect->prepare($insertStatement);
