@@ -31,6 +31,7 @@ function giveFeedback($connection, $inputs) {
         // $queryObj = $connection->prepare($insertStatement);
         $queryObj = $newConnect->prepare($insertStatement);
         $queryObj->execute([$inputs->feedback, $inputs->username, $inputs->email]);
+        $reply->query = $queryObj;
         $reply->status = "success";
         $reply->message = "feedback submitted";
     } catch (PDOException $pe) {
