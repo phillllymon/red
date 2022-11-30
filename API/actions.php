@@ -1,12 +1,12 @@
 <?php
 
-require "actions/changePassword.php";
-require "actions/checkForPosts.php";
-require "actions/createPost.php";
-require "actions/getPosts.php";
-require "actions/giveFeedback.php";
-require "actions/logIn.php";
-require "actions/logOut.php";
+// require "actions/changePassword.php";
+// require "actions/checkForPosts.php";
+// require "actions/createPost.php";
+// require "actions/getPosts.php";
+// require "actions/giveFeedback.php";
+// require "actions/logIn.php";
+// require "actions/logOut.php";
 require "actions/signUp.php";
 
 require "helpers/connectToDatabase.php";
@@ -33,19 +33,19 @@ function executeAction($actionName, $inputs) {
     }
     switch ($actionName) {
         case "changePassword":
-            return changePassword($connection, $inputs);
+            // return changePassword($connection, $inputs);
         case "checkForPosts":
-            return checkForPosts($connection, $inputs);    
+            // return checkForPosts($connection, $inputs);    
         case "createPost":
-            return createPost($connection, $inputs);
+            // return createPost($connection, $inputs);
         case "getPosts":
-            return getPosts($connection, $inputs);
+            // return getPosts($connection, $inputs);
         case "giveFeedback":
-            return giveFeedback($connection, $inputs);
+            // return giveFeedback($connection, $inputs);
         case "logIn":
-            return logIn($connection, $inputs);
+            // return logIn($connection, $inputs);
         case "logOut":
-            return logOut($connection, $inputs);
+            // return logOut($connection, $inputs);
         case "signUp":
             return signUp($connection, $inputs);
     }
