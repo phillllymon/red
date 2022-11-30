@@ -5,7 +5,7 @@ fetch("https://graffiti.red/API/", {
     body: JSON.stringify({
         action: "logOut",
         username: "MrMagoo",
-        token: "some stupid token"
+        token: "dwPoqivIDFbVsQ%w3yE!x(lTO%RRucPNl)WKYF2TrUlGZ7qewCoM&2j5eOcRv@eYLZjz0"
     })
 }).then((res) => {
 
