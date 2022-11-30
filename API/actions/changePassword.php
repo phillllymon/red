@@ -1,7 +1,7 @@
 <?php
-require("./helpers/checkForData.php");
-require("./helpers/setErrorReply.php");
-require("./helpers/secretManager.php");
+include_once("./helpers/checkForData.php");
+include_once("./helpers/setErrorReply.php");
+include_once("./helpers/secretManager.php");
 function changePassword($connection, $inputs) {
     $reply = new stdClass();
 

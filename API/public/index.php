@@ -3,7 +3,7 @@
 header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
 
-require("../logger/logger.php");
+include_once("../logger/logger.php");
 
 $logFile = "../logs/log_public.txt";
 logIncomingRequest(file_get_contents('php://input').json_encode($_SERVER), $logFile);

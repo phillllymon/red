@@ -1,6 +1,6 @@
 <?php
-require("./helpers/checkForData.php");
-require("./helpers/setErrorReply.php");
+include_once("./helpers/checkForData.php");
+include_once("./helpers/setErrorReply.php");
 function createPost($connection, $inputs) {
     $reply = new stdClass();
 
