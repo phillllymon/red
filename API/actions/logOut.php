@@ -22,6 +22,10 @@ function logOut($connection, $inputs) {
         return setErrorReply("user not found");
     }
 
+    if ($existingUsers[0]->token != $inputs->token) {
+        return setErrorReply("token invalid");
+    }
+
     $updateStatement = "UPDATE users SET token=? WHERE username=?";
     try {
         $queryObj = $connection->prepare($updateStatement);
