@@ -22,7 +22,7 @@ function logIn($connection, $inputs) {
         return setErrorReply("user not found");
     }
 
-    $existingPassHash = $existingUsers[0]->pass;
+    $existingPassHash = $existingUsers[0]["pass"];
     if (!comparePasswordAgainstHash($inputs->pass, $existingPassHash)) {
         return setErrorReply("invalid password");
     }

@@ -4,8 +4,8 @@ fetch("https://graffiti.red/API/", {
     method: "POST",
     body: JSON.stringify({
         action: "logIn",
-        username: "MrMagoo",
-        pass: "poopface"
+        username: "@realDonaldTrump",
+        pass: "myFancyPassword"
     })
 }).then((res) => {
 
