@@ -22,12 +22,6 @@ function getPosts($connection, $inputs) {
         return setErrorReply("database error");
     }
 
-    // if (isset($inputs->skip) && isset($inputs->limit)) {
-    //     $reply->posts = array_slice($existingPosts, $inputs->start, $inputs->limit);
-    // } else {
-    //     $reply->posts = $existingPosts;
-    // }
-
     return $reply;
 }
 

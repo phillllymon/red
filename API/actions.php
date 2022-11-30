@@ -15,7 +15,7 @@ $availableActions = [
     "changePassword",   // need to test 7
     "checkForPosts",    // need to test 6
     "createPost",       // done
-    "getPosts",         // need to test 5
+    "getPosts",         // done
     "giveFeedback",     // done
     "logIn",            // done
     "logOut",           // done

@@ -3,11 +3,10 @@ console.log("hello world");
 fetch("https://graffiti.red/API/", {
     method: "POST",
     body: JSON.stringify({
-        action: "getPosts",
-        username: "MrMagoo",
-        token: "&VRQs!&x1DGNoYB4mqU8Nz9zpdu9k7%1%tc#hHXC1HKbOUhcY4771%45NyAjq#sacv1(p",
+        action: "checkForPosts",
         url: "https://www.google.com",
-        content: "OK one last post for old times sake"
+        skip: 20,
+        limit: 2
     })
 }).then((res) => {
 
