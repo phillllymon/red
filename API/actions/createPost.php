@@ -34,13 +34,23 @@ function createPost($connection, $inputs) {
     try {
         $queryObj = $connection->prepare($insertStatement);
         $queryObj->execute([$inputs->username, $inputs->url, $inputs->content]);
-        $newPostObj = $queryObj->fetchAll();
+        $newPostId = $queryObj->lastInsertId();
         $reply->status = "success";
         $reply->message = "post created";
-        $reply->post = $newPostObj;
     } catch (PDOException $pe) {
         return setErrorReply("database error");
     }
+
+    $getStatement = "SELECT * FROM posts WHERE id=?";
+    try {
+        $queryObj = $connection->prepare($getStatement);
+        $queryObj->execute([$newPostId]);
+        $newPost = $queryObj->fetchAll()[0];
+    } catch (PDOException $pe) {
+        return setErrorReply("new post could not be retrieved");
+    }
+
+    $reply->post = $newPost;
 
     return $reply;
 }
