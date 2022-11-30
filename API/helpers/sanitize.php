@@ -2,7 +2,7 @@
 
 function sanitizeAll($data) {
     $exceptions = new stdClass();
-    $exceptions->start = "integer";
+    $exceptions->skip = "integer";
     $exceptions->limit = "integer";
 
     $answer = new stdClass();
