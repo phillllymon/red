@@ -14,7 +14,7 @@ include_once("helpers/connectToDatabase.php");
 $availableActions = [
     "changePassword",   // need to test 7
     "checkForPosts",    // need to test 6
-    "createPost",       // need to test 4
+    "createPost",       // done
     "getPosts",         // need to test 5
     "giveFeedback",     // done
     "logIn",            // done

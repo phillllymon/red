@@ -8,7 +8,7 @@ function getPosts($connection, $inputs) {
         return setErrorReply("url required");
     }
 
-    $getStatement = "SELECT * FROM posts WHERE url=?";
+    $getStatement = "SELECT * FROM posts WHERE url=? ORDER BY created desc";
     try {
         $queryObj = $connection->prepare($getStatement);
         $queryObj->execute([$inputs->url]);
