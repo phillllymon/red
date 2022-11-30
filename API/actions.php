@@ -6,7 +6,7 @@
 // require "actions/getPosts.php";
 // require "actions/giveFeedback.php";
 // require "actions/logIn.php";
-require "actions/logOut.php";
+// require "actions/logOut.php";
 require "actions/signUp.php";
 
 require "helpers/connectToDatabase.php";
