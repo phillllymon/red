@@ -22,7 +22,7 @@ function logOut($connection, $inputs) {
         return setErrorReply("user not found");
     }
 
-    return $existingUsers;
+    return $existingUsers[0]["token"];
 
     if ($existingUsers[0]->token != $inputs->token) {
         return setErrorReply("token invalid");
