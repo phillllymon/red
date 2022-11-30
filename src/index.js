@@ -5,7 +5,7 @@ fetch("https://graffiti.red/API/", {
     body: JSON.stringify({
         action: "logIn",
         username: "MrMagoo",
-        pass: "password123"
+        pass: "poopface"
     })
 }).then((res) => {
 
