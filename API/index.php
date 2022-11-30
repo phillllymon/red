@@ -5,7 +5,7 @@ header("Access-Control-Allow-Origin: *");
 
 // TEST ONLY
 $reply = new stdClass();
-$reply->temp = "testing";
+$reply->temp = "new response!";
 echo json_encode($reply);
 die();
 // END TEST
