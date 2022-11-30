@@ -1,12 +1,12 @@
 <?php
 // require("./helpers/checkForData.php");
-include("./helpers/setErrorReply.php");
+include_once("./helpers/setErrorReply.php");
 function logOut($connection, $inputs) {
 
     $reply = new stdClass();
 
     // TEST ONLY
-    $reply->message = "testing here D";
+    $reply->message = "testing here E";
     return $reply;
     // END TEST
 

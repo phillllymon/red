@@ -1,6 +1,6 @@
 <?php
 require("./helpers/checkForData.php");
-include("./helpers/setErrorReply.php");
+include_once("./helpers/setErrorReply.php");
 require("./helpers/secretManager.php");
 function signUp($connection, $inputs) {
 
