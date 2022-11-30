@@ -21,7 +21,11 @@ function createPost($connection, $inputs) {
         return setErrorReply("user not found");
     }
 
-    $existingToken = $existingUsers[0]->token;
+    $existingToken = $existingUsers[0]["token"];
+    if ($existingToken == null) {
+        return setErrorReply("user not logged in");
+    }
+
     if ($inputs->token != $existingToken) {
         return setErrorReply("token invalid");
     }

@@ -3,9 +3,11 @@ console.log("hello world");
 fetch("https://graffiti.red/API/", {
     method: "POST",
     body: JSON.stringify({
-        action: "logIn",
-        username: "@realDonaldTrump",
-        pass: "myFancyPassword"
+        action: "createPost",
+        username: "MrMagoo",
+        token: "bullshit token",
+        url: "https://www.google.com",
+        content: "goooogle nooodle pooooooooooooooodle"
     })
 }).then((res) => {
 

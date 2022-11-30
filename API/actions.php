@@ -17,7 +17,7 @@ $availableActions = [
     "createPost",       // need to test 4
     "getPosts",         // need to test 5
     "giveFeedback",     // done
-    "logIn",            // need to test 3
+    "logIn",            // done
     "logOut",           // done
     "signUp"            // done
 ];
