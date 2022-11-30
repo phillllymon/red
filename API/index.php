@@ -6,12 +6,12 @@ header("Access-Control-Allow-Origin: *");
 require "helpers/sanitize.php";
 require "actions.php";
 
-// // TEST ONLY
-// $reply = new stdClass();
-// $reply->temp = "different new response!";
-// echo json_encode($reply);
-// die();
-// // END TEST
+// TEST ONLY
+$reply = new stdClass();
+$reply->temp = "different new response!";
+echo json_encode($reply);
+die();
+// END TEST
 
 $inputs = sanitizeAll(json_decode(file_get_contents('php://input')));
 
