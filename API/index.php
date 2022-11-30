@@ -3,6 +3,13 @@
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
+// TEST ONLY
+$reply = new stdClass();
+$reply->temp = "testing";
+echo json_encode($reply);
+die();
+// END TEST
+
 require "helpers/sanitize.php";
 require "actions.php";
 
