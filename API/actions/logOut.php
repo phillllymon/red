@@ -1,6 +1,6 @@
 <?php
 // require("./helpers/checkForData.php");
-require("./helpers/setErrorReply.php");
+include("./helpers/setErrorReply.php");
 function logOut($connection, $inputs) {
 
     $reply = new stdClass();
