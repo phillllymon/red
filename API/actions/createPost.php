@@ -45,7 +45,7 @@ function createPost($connection, $inputs) {
     try {
         $queryObj = $connection->prepare($getStatement);
         $queryObj->execute([$newPostId]);
-        $newPost = $queryObj->fetchAll();
+        $newPost = $queryObj->fetchAll()[0];
     } catch (PDOException $pe) {
         return setErrorReply("new post could not be retrieved");
     }
