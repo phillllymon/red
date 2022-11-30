@@ -4,7 +4,8 @@ fetch("https://graffiti.red/API/", {
     method: "POST",
     body: JSON.stringify({
         action: "logOut",
-        username: "mr poopface"
+        username: "MrPantsyFance",
+        token: "some stupid token"
     })
 }).then((res) => {
 
