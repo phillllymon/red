@@ -5,7 +5,7 @@ include_once("./helpers/secretManager.php");
 function logIn($connection, $inputs) {
     $reply = new stdClass();
 
-    if (!checkForData($inputs, ["username", "token"])) {
+    if (!checkForData($inputs, ["username", "pass"])) {
         return setErrorReply("username and pass required");
     }
 
