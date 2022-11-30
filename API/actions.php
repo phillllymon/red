@@ -19,7 +19,7 @@ $availableActions = [
     "giveFeedback",     // done
     "logIn",            // need to test 3
     "logOut",           // need to test 2
-    "signUp"            // need to test 1
+    "signUp"            // done
 ];
 
 function executeAction($actionName, $inputs) {

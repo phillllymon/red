@@ -6,11 +6,6 @@ function signUp($connection, $inputs) {
 
     $reply = new stdClass();
 
-    // // TEST ONLY
-    // $reply->temp = "testing";
-    // return $reply;
-    // // END TEST
-
     if (!checkForData($inputs, ["username", "pass"])) {
         return setErrorReply("username and pass required");
     }
