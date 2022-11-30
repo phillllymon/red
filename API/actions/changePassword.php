@@ -27,7 +27,7 @@ function changePassword($connection, $inputs) {
         return setErrorReply("old password invalid");
     }
 
-    $existingToken = $existingUsers[0]->token;
+    $existingToken = $existingUsers[0]["token"];
     if ($inputs->token != $existingToken) {
         return setErrorReply("token invalid");
     }

@@ -6,7 +6,7 @@ fetch("https://graffiti.red/API/", {
         action: "changePassword",
         username: "@realDonaldTrump",
         oldPass: "myFancyPassword",
-        token: "yermom",
+        token: "T8!2QSYjUq)8BxkExj6aM5TXPcw)&ti3QuUYs@5VuaE3Tyxl!VxGyk!y%ieh4ToMXblR#",
         newPass: "poopyhead"
     })
 }).then((res) => {
