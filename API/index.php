@@ -4,7 +4,7 @@ header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
 require "helpers/sanitize.php";
-require "actions.php";
+// require "actions.php";
 
 // TEST ONLY
 $reply = new stdClass();
