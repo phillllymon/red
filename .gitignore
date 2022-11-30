@@ -1,5 +1,6 @@
 API/logs/
 node_modules/
 scripts/
+dev.md
 package.json
 package-lock.json
