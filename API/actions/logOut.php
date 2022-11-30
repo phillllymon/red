@@ -4,6 +4,11 @@ require("./helpers/setErrorReply.php");
 function logOut($connection, $inputs) {
     $reply = new stdClass();
 
+    // TEST ONLY
+    $reply->message = "testing here";
+    return $reply;
+    // END TEST
+
     if (!checkForData($inputs, ["username", "token"])) {
         return setErrorReply("username and token required");
     }
