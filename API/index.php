@@ -6,12 +6,7 @@ header("Access-Control-Allow-Origin: *");
 require "helpers/sanitize.php";
 require "actions.php";
 
-// $inputs = sanitizeAll(json_decode(file_get_contents('php://input')));
-// TEST ONLY ---- after test uncomment ^that^
-$_SERVER["REQUEST_METHOD"] = "POST";
-$inputs = new stdClass();
-$inputs->action = "signUp";
-// END TEST
+$inputs = sanitizeAll(json_decode(file_get_contents('php://input')));
 
 $dealbreakers = [
     $_SERVER["REQUEST_METHOD"] != "POST",
