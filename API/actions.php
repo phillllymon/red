@@ -6,7 +6,7 @@
 // require "actions/getPosts.php";
 // require "actions/giveFeedback.php";
 // require "actions/logIn.php";
-// require "actions/logOut.php";
+require "actions/logOut.php";
 require "actions/signUp.php";
 
 require "helpers/connectToDatabase.php";
@@ -45,7 +45,7 @@ function executeAction($actionName, $inputs) {
         case "logIn":
             // return logIn($connection, $inputs);
         case "logOut":
-            // return logOut($connection, $inputs);
+            return logOut($connection, $inputs);
         case "signUp":
             return signUp($connection, $inputs);
     }
