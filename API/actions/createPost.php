@@ -41,16 +41,16 @@ function createPost($connection, $inputs) {
         return setErrorReply("database error");
     }
 
-    $getStatement = "SELECT * FROM posts WHERE id=?";
-    try {
-        $queryObj = $connection->prepare($getStatement);
-        $queryObj->execute([$newPostId]);
-        $newPost = $queryObj->fetchAll();
-    } catch (PDOException $pe) {
-        return setErrorReply("new post could not be retrieved");
-    }
+    // $getStatement = "SELECT * FROM posts WHERE id=?";
+    // try {
+    //     $queryObj = $connection->prepare($getStatement);
+    //     $queryObj->execute([$newPostId]);
+    //     $newPost = $queryObj->fetchAll();
+    // } catch (PDOException $pe) {
+    //     return setErrorReply("new post could not be retrieved");
+    // }
 
-    $reply->post = $newPost;
+    $reply->post = $newPostId;
 
     return $reply;
 }
