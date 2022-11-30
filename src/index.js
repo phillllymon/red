@@ -4,10 +4,10 @@ fetch("https://graffiti.red/API/", {
     method: "POST",
     body: JSON.stringify({
         action: "createPost",
-        username: "MrMagoo",
-        token: "bullshit token",
+        username: "@realDonaldTrump",
+        token: null,
         url: "https://www.google.com",
-        content: "goooogle nooodle pooooooooooooooodle"
+        content: "I am totally the president."
     })
 }).then((res) => {
 

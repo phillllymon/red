@@ -34,7 +34,7 @@ function createPost($connection, $inputs) {
     try {
         $queryObj = $connection->prepare($insertStatement);
         $queryObj->execute([$inputs->username, $inputs->url, $inputs->content]);
-        $newPostObj = $queryObj->fetch();
+        $newPostObj = $queryObj->fetchAll();
         $reply->status = "success";
         $reply->message = "post created";
         $reply->post = $newPostObj;
