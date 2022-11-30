@@ -1,15 +1,15 @@
 <?php
 
-// require "actions/changePassword.php";
-// require "actions/checkForPosts.php";
-// require "actions/createPost.php";
-// require "actions/getPosts.php";
-// require "actions/giveFeedback.php";
-// require "actions/logIn.php";
-require "actions/logOut.php";
-require "actions/signUp.php";
+include_once("actions/changePassword.php");
+include_once("actions/checkForPosts.php");
+include_once("actions/createPost.php");
+include_once("actions/getPosts.php");
+include_once("actions/giveFeedback.php");
+include_once("actions/logIn.php");
+include_once("actions/logOut.php");
+include_once("actions/signUp.php");
 
-require "helpers/connectToDatabase.php";
+include_once("helpers/connectToDatabase.php");
 
 $availableActions = [
     "changePassword",   // need to test 7
@@ -18,7 +18,7 @@ $availableActions = [
     "getPosts",         // need to test 5
     "giveFeedback",     // done
     "logIn",            // need to test 3
-    "logOut",           // need to test 2
+    "logOut",           // done
     "signUp"            // done
 ];
 
@@ -33,17 +33,17 @@ function executeAction($actionName, $inputs) {
     }
     switch ($actionName) {
         case "changePassword":
-            // return changePassword($connection, $inputs);
+            return changePassword($connection, $inputs);
         case "checkForPosts":
-            // return checkForPosts($connection, $inputs);    
+            return checkForPosts($connection, $inputs);    
         case "createPost":
-            // return createPost($connection, $inputs);
+            return createPost($connection, $inputs);
         case "getPosts":
-            // return getPosts($connection, $inputs);
+            return getPosts($connection, $inputs);
         case "giveFeedback":
-            // return giveFeedback($connection, $inputs);
+            return giveFeedback($connection, $inputs);
         case "logIn":
-            // return logIn($connection, $inputs);
+            return logIn($connection, $inputs);
         case "logOut":
             return logOut($connection, $inputs);
         case "signUp":
