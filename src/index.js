@@ -3,10 +3,11 @@ console.log("hello world");
 fetch("https://graffiti.red/API/", {
     method: "POST",
     body: JSON.stringify({
-        action: "checkForPosts",
-        url: "https://www.google.com",
-        skip: 20,
-        limit: 2
+        action: "changePassword",
+        username: "@realDonaldTrump",
+        oldPass: "myFancyPassword",
+        token: "yermom",
+        newPass: "poopyhead"
     })
 }).then((res) => {
 

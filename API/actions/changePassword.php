@@ -22,7 +22,7 @@ function changePassword($connection, $inputs) {
         return setErrorReply("user not found");
     }
 
-    $existingPassHash = $existingUsers[0]->pass;
+    $existingPassHash = $existingUsers[0]["pass"];
     if (!comparePasswordAgainstHash($inputs->oldPass, $existingPassHash)) {
         return setErrorReply("old password invalid");
     }

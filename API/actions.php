@@ -13,7 +13,7 @@ include_once("helpers/connectToDatabase.php");
 
 $availableActions = [
     "changePassword",   // need to test 7
-    "checkForPosts",    // need to test 6
+    "checkForPosts",    // done
     "createPost",       // done
     "getPosts",         // done
     "giveFeedback",     // done
