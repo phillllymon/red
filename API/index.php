@@ -3,13 +3,6 @@
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
-// TEST ONLY
-$reply = new stdClass();
-$reply->temp = "different new response!";
-echo json_encode($reply);
-die();
-// END TEST
-
 require "helpers/sanitize.php";
 require "actions.php";
 
@@ -19,6 +12,13 @@ $dealbreakers = [
     $_SERVER["REQUEST_METHOD"] != "POST",
     !(isset($inputs->action) && in_array($inputs->action, $availableActions))
 ];
+
+// TEST ONLY
+$reply = new stdClass();
+$reply->temp = "different new response!";
+echo json_encode($reply);
+die();
+// END TEST
 
 foreach($dealbreakers as $breaker) {
     if ($breaker) {
