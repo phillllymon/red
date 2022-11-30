@@ -6,7 +6,7 @@ function logOut($connection, $inputs) {
     $reply = new stdClass();
 
     // TEST ONLY
-    $reply->message = "testing here B";
+    $reply->message = "testing here C";
     return $reply;
     // END TEST
 
