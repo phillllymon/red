@@ -6,16 +6,21 @@ header("Access-Control-Allow-Origin: *");
 require "helpers/sanitize.php";
 require "actions.php";
 
-$inputs = sanitizeAll(json_decode(file_get_contents('php://input')));
+// $inputs = sanitizeAll(json_decode(file_get_contents('php://input')));
+// TEST ONLY ---- after test uncomment ^that^
+$_SERVER["REQUEST_METHOD"] = "POST";
+$inputs = new stdClass();
+$inputs->action = "signUp";
+// END TEST
 
 $dealbreakers = [
     $_SERVER["REQUEST_METHOD"] != "POST",
-    !in_array($inputs->action, $availableActions)
+    !(isset($inputs->action) && in_array($inputs->action, $availableActions))
 ];
 
 foreach($dealbreakers as $breaker) {
     if ($breaker) {
-        echo "invalid request";
+        echo "invalid request\n";
         die("dealbreaker encountered");
     }
 }
@@ -24,7 +29,6 @@ foreach($dealbreakers as $breaker) {
 
 $actionToTake = $inputs->action;
 
-// echo json_encode($inputs);
 echo json_encode(executeAction($actionToTake, $inputs));
 
 

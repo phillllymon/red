@@ -27,10 +27,11 @@ console.log("hello world");
 //     console.log(err.message);
 // });
 
-fetch("https://graffiti.red/API/", {
+fetch("https://localhost:8000/API/public/", {
+    type: "no-cors",
     method: "POST",
     body: JSON.stringify({
-        action: "giveFeedback",
+        action: "signUp",
         email: "poop@face.com",
         feedback: "I love this friggin' thing!",
     })

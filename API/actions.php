@@ -12,14 +12,14 @@ require "actions/signUp.php";
 require "helpers/connectToDatabase.php";
 
 $availableActions = [
-    "changePassword",
-    "checkForPosts",
-    "createPost",
-    "getPosts",
-    "giveFeedback",
-    "logIn",
-    "logOut",
-    "signUp"
+    "changePassword",   // need to test 7
+    "checkForPosts",    // need to test 6
+    "createPost",       // need to test 4
+    "getPosts",         // need to test 5
+    "giveFeedback",     // done
+    "logIn",            // need to test 3
+    "logOut",           // need to test 2
+    "signUp"            // need to test 1
 ];
 
 function executeAction($actionName, $inputs) {
@@ -28,7 +28,7 @@ function executeAction($actionName, $inputs) {
     } catch (PDOException $pe) {
         $reply = new StdClass();
         $reply->status = "fail";
-        $reply->message = "databse error";
+        $reply->message = "cannot connect to database";
         return $reply;
     }
     switch ($actionName) {
