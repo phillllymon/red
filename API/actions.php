@@ -44,8 +44,8 @@ function executeAction($actionName, $inputs) {
             // return giveFeedback($connection, $inputs);
         case "logIn":
             // return logIn($connection, $inputs);
-        // case "logOut":
-        //     return logOut($connection, $inputs);
+        case "logOut":
+            return logOut($connection, $inputs);
         case "signUp":
             return signUp($connection, $inputs);
     }
