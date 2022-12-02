@@ -51,7 +51,7 @@ function executeAction($actionName, $inputs) {
         case "signUp":
             return signUp($connection, $inputs);
         case "checkLogin":
-            return signUp($connection, $inputs);
+            return checkLogin($connection, $inputs);
     }
 }
 
