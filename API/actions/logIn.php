@@ -28,10 +28,11 @@ function logIn($connection, $inputs) {
     }
 
     $token = generateRandomToken();
+    $tokenHash = createPasswordHash($token);
     $updateStatement = "UPDATE users SET token=? WHERE username=?";
     try {
         $queryObj = $connection->prepare($updateStatement);
-        $queryObj->execute([$token, $inputs->username]);
+        $queryObj->execute([$tokenHash, $inputs->username]);
         $reply->status = "success";
         $reply->message = "user logged in";
         $reply->token = $token;

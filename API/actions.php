@@ -8,18 +8,20 @@ include_once("actions/giveFeedback.php");
 include_once("actions/logIn.php");
 include_once("actions/logOut.php");
 include_once("actions/signUp.php");
+include_once("actions/checkLogin.php");
 
 include_once("helpers/connectToDatabase.php");
 
 $availableActions = [
-    "changePassword",   // need to test 7
+    "changePassword",   // done
     "checkForPosts",    // done
     "createPost",       // done
     "getPosts",         // done
     "giveFeedback",     // done
     "logIn",            // done
     "logOut",           // done
-    "signUp"            // done
+    "signUp",           // done
+    "checkLogin"        // done
 ];
 
 function executeAction($actionName, $inputs) {
@@ -47,6 +49,8 @@ function executeAction($actionName, $inputs) {
         case "logOut":
             return logOut($connection, $inputs);
         case "signUp":
+            return signUp($connection, $inputs);
+        case "checkLogin":
             return signUp($connection, $inputs);
     }
 }

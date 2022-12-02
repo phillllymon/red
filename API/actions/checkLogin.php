@@ -2,8 +2,7 @@
 include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
 include_once("./helpers/secretManager.php");
-function logOut($connection, $inputs) {
-
+function checkLogin($connection, $inputs) {
     $reply = new stdClass();
 
     if (!checkForData($inputs, ["username", "token"])) {
@@ -20,21 +19,21 @@ function logOut($connection, $inputs) {
     }
 
     if (count($existingUsers) != 1) {
-        return setErrorReply("user not found");
-    }
-    
-    if (!comparePasswordAgainstHash($inputs->token, $existingUsers[0]["token"])) {
-        return setErrorReply("token invalid");
+        $reply->status = "success";
+        $reply->message = "user not found";
+        $reply->answer = false;
+        return $reply;
     }
 
-    $updateStatement = "UPDATE users SET token=? WHERE username=?";
-    try {
-        $queryObj = $connection->prepare($updateStatement);
-        $queryObj->execute([null, $inputs->username]);
+    $existingToken = $existingUsers[0]["token"];
+    if ($existingToken == null || !comparePasswordAgainstHash($inputs->token, $existingToken)) {
         $reply->status = "success";
-        $reply->message = "user logged out";
-    } catch (PDOException $pe) {
-        return setErrorReply("database error");
+        $reply->message = "user not logged in";
+        $reply->answer = false;
+    } else {
+        $reply->status = "success";
+        $reply->message = "user logged in";
+        $reply->answer = true;
     }
 
     return $reply;

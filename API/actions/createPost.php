@@ -1,6 +1,7 @@
 <?php
 include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
+include_once("./helpers/secretManager.php");
 function createPost($connection, $inputs) {
     $reply = new stdClass();
 
@@ -26,7 +27,7 @@ function createPost($connection, $inputs) {
         return setErrorReply("user not logged in");
     }
 
-    if ($inputs->token != $existingToken) {
+    if (!comparePasswordAgainstHash($inputs->token, $existingToken)) {
         return setErrorReply("token invalid");
     }
 

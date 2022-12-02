@@ -25,10 +25,11 @@ function signUp($connection, $inputs) {
 
     $passHash = createPasswordHash($inputs->pass);
     $token = generateRandomToken();
+    $tokenHash = createPasswordHash($token);
     $insertStatement = "INSERT INTO users (username, pass, token) VALUES (?, ?, ?)";
     try {
         $queryObj = $connection->prepare($insertStatement);
-        $queryObj->execute([$inputs->username, $passHash, $token]);
+        $queryObj->execute([$inputs->username, $passHash, $tokenHash]);
         $reply->status = "success";
         $reply->message = "user added";
         $reply->token = $token;

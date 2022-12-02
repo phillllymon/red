@@ -28,7 +28,7 @@ function changePassword($connection, $inputs) {
     }
 
     $existingToken = $existingUsers[0]["token"];
-    if ($inputs->token != $existingToken) {
+    if (!comparePasswordAgainstHash($inputs->token, $existingToken)) {
         return setErrorReply("token invalid");
     }
 
