@@ -35,6 +35,7 @@ function logIn($connection, $inputs) {
         $queryObj->execute([$tokenHash, $inputs->username]);
         $reply->status = "success";
         $reply->message = "user logged in";
+        $reply->avatar = $existingUsers[0]["avatar"];
         $reply->token = $token;
     } catch (PDOException $pe) {
         return setErrorReply("database error");
