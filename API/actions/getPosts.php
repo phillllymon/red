@@ -29,29 +29,20 @@ function getPosts($connection, $inputs) {
         for ($i = 0; $i < count($posts); $i++) {
             $post = $posts[$i];
             if (!isset($avatars->{$post["username"]})) {
-                $avatars->{$post["username"]} = "poopyhead";
+                // $avatars->{$post["username"]} = "poopyhead";
+
+                $getAvatarStatement = "SELECT * FROM users WHERE username=?";
+                $queryObj = $connection->prepare($getAvatarStatement);
+                $queryObj->execute($post["username"]);
+                $authors = $queryObj->fetchAll();
+
+                if (count($authors) > 0) {
+                    $avatars->{$post["username"]} = $authors[0]["avatar"];
+                } else {
+                    $avatars->{$post["username"]} = "default";
+                }
             }
         }
-
-
-        // foreach($posts as $post) {
-        //     $username = $post["username"];
-        //     if (isset($avatars->{$username})) {
-        //         $post["avatar"] = $avatars->{$username};
-        //     } else {
-        //         $getAvatarStatement = "SELECT * FROM users WHERE username=?";
-        //         $queryObj = $connection->prepare($getAvatarStatement);
-        //         $queryObj->execute([$username]);
-        //         $authors = $queryObj->getchAll();
-        //         if (count($authors) == 1) {
-        //             $avatars->{$username} = $authors[0]["avatar"];
-        //             $post["avatar"] = $authors[0]["avatar"];
-        //         } else {
-        //             $avatars->{$username} = "&#128100;";
-        //             $post["avatar"] = "&#128100;";
-        //         }
-        //     }
-        // }
     } catch (PDOException $pe) {
         $reply->message = "error getting post authors";
     }
