@@ -27,7 +27,9 @@ function getPosts($connection, $inputs) {
     $avatars = new stdClass();
     try {
         for ($i = 0; $i < count($posts); $i++) {
-            $avatars->poop = "face";
+            $post = $posts[$i];
+            
+            $avatars->{$post["username"]} = "&#128100;";
         }
 
 
