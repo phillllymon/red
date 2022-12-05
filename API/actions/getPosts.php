@@ -27,7 +27,7 @@ function getPosts($connection, $inputs) {
     $avatars = new stdClass();
     try {
         foreach($posts as $post) {
-            $post["avatar"] = "&#128100;";
+            $post->avatar = "&#128100;";
         }
 
         // foreach($posts as $post) {
