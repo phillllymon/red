@@ -26,9 +26,9 @@ function getPosts($connection, $inputs) {
     // get avatars for all the posts you're about to return
     $avatars = new stdClass();
     try {
-        foreach($posts as $post) {
-            $avatars->poop = "face";
-        }
+        // foreach($posts as $post) {
+        //     $avatars->poop = "face";
+        // }
 
 
         // foreach($posts as $post) {
