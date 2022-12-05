@@ -28,8 +28,9 @@ function getPosts($connection, $inputs) {
     try {
         for ($i = 0; $i < count($posts); $i++) {
             $post = $posts[$i];
-            
-            $avatars->{$post["username"]} = "&#128100;";
+            if (!isset($avatars->{$post["username"]})) {
+                $avatars->{$post["username"]} = "poopyhead";
+            }
         }
 
 
