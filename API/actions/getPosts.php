@@ -33,7 +33,7 @@ function getPosts($connection, $inputs) {
 
                 $getAvatarStatement = "SELECT * FROM users WHERE username=?";
                 $queryObj = $connection->prepare($getAvatarStatement);
-                $queryObj->execute($post["username"]);
+                $queryObj->execute([$post["username"]]);
                 $authors = $queryObj->fetchAll();
 
                 if (count($authors) > 0) {
