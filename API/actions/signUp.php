@@ -6,8 +6,8 @@ function signUp($connection, $inputs) {
 
     $reply = new stdClass();
 
-    if (!checkForData($inputs, ["username", "avatar", "pass"])) {
-        return setErrorReply("username, avatar, and pass required");
+    if (!checkForData($inputs, ["username", "avatar", "pass", "email"])) {
+        return setErrorReply("username, email, avatar, and pass required");
     }
 
     $getStatement = "SELECT * FROM users WHERE username=?";
@@ -26,10 +26,10 @@ function signUp($connection, $inputs) {
     $passHash = createPasswordHash($inputs->pass);
     $token = generateRandomToken();
     $tokenHash = createPasswordHash($token);
-    $insertStatement = "INSERT INTO users (username, avatar, pass, token) VALUES (?, ?, ?, ?)";
+    $insertStatement = "INSERT INTO users (username, email, avatar, pass, token) VALUES (?, ?, ?, ?, ?)";
     try {
         $queryObj = $connection->prepare($insertStatement);
-        $queryObj->execute([$inputs->username, $inputs->avatar, $passHash, $tokenHash]);
+        $queryObj->execute([$inputs->username, $inputs->email, $inputs->avatar, $passHash, $tokenHash]);
         $reply->status = "success";
         $reply->message = "user added";
         $reply->token = $token;
