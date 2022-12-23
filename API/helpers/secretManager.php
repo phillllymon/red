@@ -17,7 +17,7 @@ function generateRandomToken($length = 50) {
 
     $numChars = count($validChars);
     $newToken = "";
-    for ($i = 0; $i < $numChars; $i++) {
+    for ($i = 0; $i < $length; $i++) {
         $newToken = $newToken.$validChars[rand(0, $numChars - 1)];
     }
 
