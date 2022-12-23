@@ -23,7 +23,7 @@ $availableActions = [
     "logOut",           // done
     "signUp",           // done
     "checkLogin",       // done
-    "resetPassword"     // done
+    "resetPassword"     // TODO: more than just stub
 ];
 
 function executeAction($actionName, $inputs) {
