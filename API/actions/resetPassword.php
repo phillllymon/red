@@ -7,7 +7,7 @@ function resetPassword($connection, $inputs) {
     $to      = 'rparkerharris@gmail.com';
     $subject = 'the subject';
     $message = 'hello';
-    $headers = 'From: info@graffiti.red' . "\r\n" .
+    $headers = 'From: graffitiPassword@graffiti.red' . "\r\n" .
     'Reply-To: info@graffiti.red' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
 
