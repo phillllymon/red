@@ -29,11 +29,12 @@ function resetPassword($connection, $inputs) {
     $subject = "GRAFFITI password reset";
     $message = "hello";
     $headers = "From: password@graffiti.red" . "\r\n" .
-    "Reply-To: info@graffiti.red";
+    "Reply-To: info@graffiti.red" . "\r\n" .
+    "X-Mailer: PHP/" . phpversion();
 
     mail($to, $subject, $message, $headers);
 
-    $reply->message = "email sent";
+    $reply->message = "email sent again";
 
     return $reply;
 }
