@@ -12,27 +12,38 @@ function resetPassword($connection, $inputs) {
 
     $email = $inputs->email;
 
-    // $getStatement = "SELECT * FROM users WHERE username=?";
-    // try {
-    //     $queryObj = $connection->prepare($getStatement);
-    //     $queryObj->execute([$inputs->username]);
-    //     $existingUsers = $queryObj->fetchAll();
-    // } catch (PDOException $pe) {
-    //     return setErrorReply("database error");
-    // }
+    $getStatement = "SELECT * FROM users WHERE email=?";
+    try {
+        $queryObj = $connection->prepare($getStatement);
+        $queryObj->execute([$email]);
+        $existingUsers = $queryObj->fetchAll();
+    } catch (PDOException $pe) {
+        return setErrorReply("database error");
+    }
 
-    // if (count($existingUsers) != 1) {
-    //     return setErrorReply("user not found");
-    // }
+    if (count($existingUsers) != 1) {
+        return setErrorReply("user not found");
+    }
 
-    $username = "myFancyUsername";
-    $newPassword = "myFancyPassword";
+    $username = $existingUsers[0]["username"];
+    $newPassword = generateRandomToken(10);
+    $passHash = createPasswordHash($newPassword);
+
+    $updateStatement = "UPDATE users SET pass=? WHERE username=?";
+    try {
+        $queryObj = $connection->prepare($updateStatement);
+        $queryObj->execute([$passHash, $username]);
+        $reply->status = "success";
+        $reply->message = "password reset";
+    } catch (PDOException $pe) {
+        return setErrorReply("database error");
+    }
 
     $to      = $email;
     $subject = "GRAFFITI password reset";
     $message = "hello:\n\n
-    Your GRAFFITI username is {$username}.\n
-    Your new GRAFFITI password is {$newPassword}.\n
+    Your username is {$username}.\n
+    Your new password is {$newPassword}.\n
     We suggest you change your password the next time you log in.\n\n
     Cheers,\n
     GRAFFITI dev team";
@@ -41,8 +52,6 @@ function resetPassword($connection, $inputs) {
     "X-Mailer: PHP/" . phpversion();
 
     mail($to, $subject, $message, $headers);
-
-    $reply->message = "email sent again";
 
     return $reply;
 }
