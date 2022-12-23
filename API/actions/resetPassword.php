@@ -25,9 +25,17 @@ function resetPassword($connection, $inputs) {
     //     return setErrorReply("user not found");
     // }
 
+    $username = "myFancyUsername";
+    $newPassword = "myFancyPassword";
+
     $to      = $email;
     $subject = "GRAFFITI password reset";
-    $message = "hello";
+    $message = "hello:\n\n
+    Your GRAFFITI username is {$username}.\n
+    Your new GRAFFITI password is {$newPassword}.\n
+    We suggest you change your password the next time you log in.\n\n
+    Cheers,\n
+    GRAFFITI dev team";
     $headers = "From: password@graffiti.red" . "\r\n" .
     "Reply-To: info@graffiti.red" . "\r\n" .
     "X-Mailer: PHP/" . phpversion();
