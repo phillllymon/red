@@ -34,7 +34,7 @@ function resetPassword($connection, $inputs) {
 
     mail($to, $subject, $message, $headers);
 
-    $reply->message = "email sent";
+    $reply->message = $email;
 
     return $reply;
 }
