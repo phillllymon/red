@@ -4,14 +4,14 @@ function resetPassword($connection, $inputs) {
 
     $reply = new stdClass();
 
-    // the message
-    $msg = "First line of text\nSecond line of text";
+    $to      = 'rparkerharris@gmail.com';
+    $subject = 'the subject';
+    $message = 'hello';
+    $headers = 'From: info@graffiti.red' . "\r\n" .
+    'Reply-To: info@graffiti.red' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
 
-    // use wordwrap() if lines are longer than 70 characters
-    $msg = wordwrap($msg,70);
-
-    // send email
-    mail("rparkerharris@gmail.com","My subject",$msg);
+    mail($to, $subject, $message, $headers);
 
     $reply->message = "email sent";
 
