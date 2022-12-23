@@ -9,6 +9,7 @@ include_once("actions/logIn.php");
 include_once("actions/logOut.php");
 include_once("actions/signUp.php");
 include_once("actions/checkLogin.php");
+include_once("actions/resetPassword.php");
 
 include_once("helpers/connectToDatabase.php");
 
@@ -21,7 +22,8 @@ $availableActions = [
     "logIn",            // done
     "logOut",           // done
     "signUp",           // done
-    "checkLogin"        // done
+    "checkLogin",       // done
+    "resetPassword"     // done
 ];
 
 function executeAction($actionName, $inputs) {
@@ -52,6 +54,8 @@ function executeAction($actionName, $inputs) {
             return signUp($connection, $inputs);
         case "checkLogin":
             return checkLogin($connection, $inputs);
+        case "resetPassword":
+            return resetPassword($connection, $inputs);
     }
 }
 
