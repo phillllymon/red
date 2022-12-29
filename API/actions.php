@@ -11,6 +11,7 @@ include_once("actions/signUp.php");
 include_once("actions/checkLogin.php");
 include_once("actions/resetPassword.php");
 include_once("actions/changeAvatar.php");
+include_once("actions/deleteAccount.php");
 
 include_once("helpers/connectToDatabase.php");
 
@@ -25,7 +26,8 @@ $availableActions = [
     "signUp",           // done
     "checkLogin",       // done
     "resetPassword",    // done
-    "changeAvatar"      // TODO
+    "changeAvatar",     // UNTESTED
+    "deleteAccount"     // UNTESTED
 ];
 
 function executeAction($actionName, $inputs) {
@@ -60,6 +62,8 @@ function executeAction($actionName, $inputs) {
             return resetPassword($connection, $inputs);
         case "changeAvatar":
             return changeAvatar($connection, $inputs);
+        case "deleteAccount":
+            return deleteAccount($connection, $inputs);
     }
 }
 
