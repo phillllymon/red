@@ -24,15 +24,13 @@ function deleteAccount($connection, $inputs) {
 
     $existingPassHash = $existingUsers[0]["pass"];
     if (!comparePasswordAgainstHash($inputs->pass, $existingPassHash)) {
-        return setErrorReply("password invalid!!");
+        return setErrorReply("password invalid");
     }
 
     $existingToken = $existingUsers[0]["token"];
     if (!comparePasswordAgainstHash($inputs->token, $existingToken)) {
         return setErrorReply("user not logged in");
     }
-
-    return setErrorReply($inputs->username);
 
     $deleteStatement = "DELETE FROM users WHERE username=?";
     try {
