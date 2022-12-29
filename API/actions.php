@@ -10,6 +10,7 @@ include_once("actions/logOut.php");
 include_once("actions/signUp.php");
 include_once("actions/checkLogin.php");
 include_once("actions/resetPassword.php");
+include_once("actions/changeAvatar.php");
 
 include_once("helpers/connectToDatabase.php");
 
@@ -23,7 +24,8 @@ $availableActions = [
     "logOut",           // done
     "signUp",           // done
     "checkLogin",       // done
-    "resetPassword"     // TODO: more than just stub
+    "resetPassword",    // done
+    "changeAvatar"      // TODO
 ];
 
 function executeAction($actionName, $inputs) {
@@ -56,6 +58,8 @@ function executeAction($actionName, $inputs) {
             return checkLogin($connection, $inputs);
         case "resetPassword":
             return resetPassword($connection, $inputs);
+        case "changeAvatar":
+            return changeAvatar($connection, $inputs);
     }
 }
 
