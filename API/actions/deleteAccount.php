@@ -24,7 +24,7 @@ function deleteAccount($connection, $inputs) {
 
     $existingPassHash = $existingUsers[0]["pass"];
     if (!comparePasswordAgainstHash($inputs->oldPass, $existingPassHash)) {
-        return setErrorReply("password invalid");
+        return setErrorReply("password invalid!!");
     }
 
     $existingToken = $existingUsers[0]["token"];
