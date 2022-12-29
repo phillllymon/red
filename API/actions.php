@@ -26,7 +26,7 @@ $availableActions = [
     "signUp",           // done
     "checkLogin",       // done
     "resetPassword",    // done
-    "changeAvatar",     // UNTESTED
+    "changeAvatar",     // done
     "deleteAccount"     // UNTESTED
 ];
 
