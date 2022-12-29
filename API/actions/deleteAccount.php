@@ -32,6 +32,8 @@ function deleteAccount($connection, $inputs) {
         return setErrorReply("user not logged in");
     }
 
+    return setErrorReply($inputs->username);
+
     $deleteStatement = "DELETE FROM users WHERE username=?";
     try {
         $queryObj = $connection->prepare($deleteStatement);
