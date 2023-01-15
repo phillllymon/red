@@ -27,7 +27,8 @@ function notifyTaggedUsers($connection, $inputs) {
             $subject = "You've been tagged in a GRAFFITI post";
             $message = "hello {$user}:\n\n
             {$inputs->author} recently tagged you in a post.\n
-            Open GRAFFITI on the following url to see the post where you've been tagged.\n\n
+            Open GRAFFITI on the following url to see the post where you've been tagged:\n
+            {$inputs->url}\n\n
             Cheers,\n
             GRAFFITI team";
             $headers = "From: notifications@graffiti.red" . "\r\n" .
