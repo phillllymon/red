@@ -11,7 +11,7 @@ function notifyTaggedUsers($connection, $inputs) {
     }
 
     $reply->status = "success";
-    $reply->tags = $inputs->tags;
+    $reply->tags = json_decode($inputs->tags);
     return $reply;
 
     // $getStatement = "SELECT * FROM users WHERE email=?";
