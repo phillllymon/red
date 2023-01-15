@@ -31,7 +31,7 @@ $availableActions = [
     "changeAvatar",     // done
     "deleteAccount",    // done
     "checkForUser",     // done
-    "notifyTaggedUsers" // TODO
+    "notifyTaggedUsers" // done
 ];
 
 function executeAction($actionName, $inputs) {
