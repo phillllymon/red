@@ -1,7 +1,6 @@
 <?php
 include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
-include_once("./helpers/secretManager.php");
 function notifyTaggedUsers($connection, $inputs) {
 
     $reply = new stdClass();
@@ -10,52 +9,39 @@ function notifyTaggedUsers($connection, $inputs) {
         return setErrorReply("url, author, and tags required");
     }
 
+    $tags = json_decode($inputs->tags);
+    foreach ($tags as $user) {
+        $getStatement = "SELECT * FROM users WHERE username=?";
+        try {
+            $queryObj = $connection->prepare($getStatement);
+            $queryObj->execute([$user]);
+            $existingUsers = $queryObj->fetchAll();
+        } catch (PDOException $pe) {
+            return setErrorReply("database error");
+        }
+
+        if (count($existingUsers) == 1) {
+            $email = $existingUsers[0]["email"];
+
+            $to      = $email;
+            $subject = "You've been tagged in a GRAFFITI post";
+            $message = "hello {$user}:\n\n
+            {$inputs->author} recently tagged you in a post.\n
+            Open GRAFFITI on the following url to see the post where you've been tagged.\n\n
+            Cheers,\n
+            GRAFFITI team";
+            $headers = "From: notifications@graffiti.red" . "\r\n" .
+            "Reply-To: info@graffiti.red" . "\r\n" .
+            "X-Mailer: PHP/" . phpversion();
+
+            mail($to, $subject, $message, $headers);
+
+        }
+    }
+
     $reply->status = "success";
-    $reply->tags = json_decode($inputs->tags);
+    $reply->message = "email notifcations attempted";
     return $reply;
-
-    // $getStatement = "SELECT * FROM users WHERE email=?";
-    // try {
-    //     $queryObj = $connection->prepare($getStatement);
-    //     $queryObj->execute([$email]);
-    //     $existingUsers = $queryObj->fetchAll();
-    // } catch (PDOException $pe) {
-    //     return setErrorReply("database error");
-    // }
-
-    // if (count($existingUsers) != 1) {
-    //     return setErrorReply("user not found");
-    // }
-
-    // $username = $existingUsers[0]["username"];
-    // $newPassword = generateRandomToken(10);
-    // $passHash = createPasswordHash($newPassword);
-
-    // $updateStatement = "UPDATE users SET pass=? WHERE username=?";
-    // try {
-    //     $queryObj = $connection->prepare($updateStatement);
-    //     $queryObj->execute([$passHash, $username]);
-    //     $reply->status = "success";
-    //     $reply->message = "password reset";
-    // } catch (PDOException $pe) {
-    //     return setErrorReply("database error");
-    // }
-
-    // $to      = $email;
-    // $subject = "GRAFFITI password reset";
-    // $message = "hello:\n\n
-    // Your username is {$username}.\n
-    // Your new password is {$newPassword}.\n
-    // We suggest you change your password the next time you log in.\n\n
-    // Cheers,\n
-    // GRAFFITI dev team";
-    // $headers = "From: password@graffiti.red" . "\r\n" .
-    // "Reply-To: info@graffiti.red" . "\r\n" .
-    // "X-Mailer: PHP/" . phpversion();
-
-    // mail($to, $subject, $message, $headers);
-
-    // return $reply;
 }
 
 ?>
