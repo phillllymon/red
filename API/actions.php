@@ -13,6 +13,7 @@ include_once("actions/resetPassword.php");
 include_once("actions/changeAvatar.php");
 include_once("actions/deleteAccount.php");
 include_once("actions/checkForUser.php");
+include_once("actions/notifyTaggedUsers.php");
 
 include_once("helpers/connectToDatabase.php");
 
@@ -29,7 +30,8 @@ $availableActions = [
     "resetPassword",    // done
     "changeAvatar",     // done
     "deleteAccount",    // done
-    "checkForUser"      // TODO
+    "checkForUser",     // done
+    "notifyTaggedUsers" // TODO
 ];
 
 function executeAction($actionName, $inputs) {
@@ -68,6 +70,8 @@ function executeAction($actionName, $inputs) {
             return deleteAccount($connection, $inputs);
         case "checkForUser":
             return checkForUser($connection, $inputs);
+        case "notifyTaggedUsers":
+            return notifyTaggedUsers($connection, $inputs);
     }
 }
 
