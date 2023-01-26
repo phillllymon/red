@@ -1,13 +1,9 @@
 <?php
-include_once("./helpers/checkForData.php");
+
 include_once("./helpers/setErrorReply.php");
 function oneTimeThing($connection, $inputs) {
 
     $reply = new stdClass();
-
-    if (!checkForData($inputs, [])) {
-        return setErrorReply("should not be seeing this.....");
-    }
 
     // $tags = json_decode($inputs->tags);
     // foreach ($tags as $user) {
