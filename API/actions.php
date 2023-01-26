@@ -14,6 +14,7 @@ include_once("actions/changeAvatar.php");
 include_once("actions/deleteAccount.php");
 include_once("actions/checkForUser.php");
 include_once("actions/notifyTaggedUsers.php");
+include_once("actions/oneTimeThing.php");
 
 include_once("helpers/connectToDatabase.php");
 
@@ -31,7 +32,8 @@ $availableActions = [
     "changeAvatar",     // done
     "deleteAccount",    // done
     "checkForUser",     // done
-    "notifyTaggedUsers" // done
+    "notifyTaggedUsers",// done
+    "oneTimeThing"      // ongoing...
 ];
 
 function executeAction($actionName, $inputs) {
@@ -72,6 +74,8 @@ function executeAction($actionName, $inputs) {
             return checkForUser($connection, $inputs);
         case "notifyTaggedUsers":
             return notifyTaggedUsers($connection, $inputs);
+        case "oneTimeThing":
+            return oneTimeThing($connection, $inputs);
     }
 }
 
