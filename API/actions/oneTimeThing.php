@@ -5,39 +5,46 @@ function oneTimeThing($connection, $inputs) {
 
     $reply = new stdClass();
 
-    // $tags = json_decode($inputs->tags);
-    // foreach ($tags as $user) {
-    //     $getStatement = "SELECT * FROM users WHERE username=?";
+    // UNCOMMENT ALL THIS AT YOUR OWN RISK!!!!!
+
+    // $getStatement = "SELECT * FROM posts";
+    // try {
+    //     $queryObj = $connection->prepare($getStatement);
+    //     $queryObj->execute([$inputs->url]);
+    //     $allPosts = $queryObj->fetchAll();
+    // } catch (PDOException $pe) {
+    //     return setErrorReply("database error");
+    // }
+
+    // $urls = new stdClass();
+
+    // foreach($allPosts as $post) {
+    //     $url = $post["url"];
+    //     $author = $post["username"];
+    //     if (!isset($urls->$url)) {
+    //         $urls->$url = [];
+    //     }
+    //     if (!in_array($author, $urls->$url)) {
+    //         array_push($urls->$url, $author);
+    //     }
+        
+    // }
+
+    // foreach($urls as $page => $users) {
+
+
+    //     $insertStatement = "INSERT INTO urls (url, pretty, followers) VALUES (?, ?, ?)";
     //     try {
-    //         $queryObj = $connection->prepare($getStatement);
-    //         $queryObj->execute([$user]);
-    //         $existingUsers = $queryObj->fetchAll();
+    //         $queryObj = $connection->prepare($insertStatement);
+    //         $queryObj->execute([$page, $page, serialize($users)]);
     //     } catch (PDOException $pe) {
     //         return setErrorReply("database error");
     //     }
-
-    //     if (count($existingUsers) == 1) {
-    //         $email = $existingUsers[0]["email"];
-
-    //         $to      = $email;
-    //         $subject = "You've been tagged in a GRAFFITI post";
-    //         $message = "hello {$user}:\n\n
-    //         {$inputs->author} recently tagged you in a post.\n
-    //         Open GRAFFITI on the following url to see the post where you've been tagged:\n
-    //         {$inputs->url}\n\n
-    //         Cheers,\n
-    //         GRAFFITI team";
-    //         $headers = "From: notifications@graffiti.red" . "\r\n" .
-    //         "Reply-To: info@graffiti.red" . "\r\n" .
-    //         "X-Mailer: PHP/" . phpversion();
-
-    //         mail($to, $subject, $message, $headers);
-
-    //     }
     // }
 
+    // $reply->data = json_encode($urls);
     $reply->status = "success";
-    $reply->message = "yay we did nothing!";
+    $reply->message = "yay we did something!";
     return $reply;
 }
 
