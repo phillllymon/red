@@ -26,7 +26,7 @@ if (count($existing) == 1) {
     $updateStatement = "UPDATE urls SET followers=? WHERE url=?";
     $updateObj = $connection->prepare($updateStatement);
     $updateObj->execute([serialize($newArr), $_GET["url"]]);
-    echo "Success! Unless you rejoin the conversation, you will no longer receive notifications for this page.";
+    echo "Success! <br><br> Unless you rejoin the conversation, you will no longer receive notifications for this page.";
 } else {
     echo "Seems to be an error. Sorry about that.";
 }
