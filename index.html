@@ -5,41 +5,82 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <title>GRAFFITI</title>
 </head>
 <body>
-    GRAFFITI is a browser extension that lets you view and leave comments on any webpage. It is much better looking than this website.
+    <div class="header">
+        <img src="images/medium.png">
+        <div class="menu">
+            <a class="menu-option active-option">learn</a>
+            <a class="menu-option" href="install.html">install</a>
+            <a class="menu-option" href="faq.html">faq</a>
+            <a class="menu-option" href="contact.html">contact</a>
+        </div>
+        <div class="button-container">
+            Download from
+            <div class="big-button" id="store-link"><a href="https://chrome.google.com/webstore/detail/graffiti/cafgjcioanjpbkimmfjkclchobolbfba" target=false>Chrome Web Store</a></div>
+        </div>
+        
+    </div>
     <br>
-    <br>
-    GRAFFITI is in the <a href="https://chrome.google.com/webstore/detail/graffiti/cafgjcioanjpbkimmfjkclchobolbfba">Chrome Web Store</a>!
-    <br>
-    <br>
-    There may be newer features in the latest beta, which you can download <a href="graffiti.zip">here</a>.
-    <br>
-    Note: By downloading GRAFFITI, you agree to our <a href="/terms/">terms</a> and <a href="/privacy/">privacy policy</a>.
-    <!-- <script type="text/javascript" src="./dist/main.js"></script> -->
-    <br>
-    <br>
-    Steps to install:
-    <br>
-    1. Download the zip file linked above
-    <br>
-    2. Unzip the file. You should get a folder called "graffiti"
-    <br>
-    3. Open Chrome and go to "chrome://extensions/"
-    <br>
-    4. In the upper-right corner toggle on "Developer mode"
-    <br>
-    5. Click the button "Load unpacked"
-    <br>
-    6. Select the unzipped folder. This should install the extension
-    <br>
-    7. Click the puzzle piece icon in the upper right of Chrome
-    <br>
-    8. In the dropdown menu, click the pin next to Graffiti
-    <br>
-    Now you should see the little speech bubble icon in the browser. Click it to open GRAFFITI. It should be gray on pages that don't have comments and orange on pages that do.
-
-    <!-- <script type="text/javascript" src="./src/index.js"></script> -->
+    <center>
+        <div class="section-header">
+            Every page on the web now has a comment section!
+            <br>
+            <br>
+            GRAFFITI lets you view and leave public comments anywhere online.
+            <br>
+        </div>
+        
+        <div class="learn-body">
+            
+            <div class="promo-image" id="1">
+                Start conversations on news articles.....
+                <br>
+                <br>
+                <img src="images/promo/news.png" width="100%">
+            </div>
+            <div class="promo-image hidden" id="2">
+                .....craigslists ads
+                <br>
+                <br>
+                <img src="images/promo/craigslist.png" width="100%">
+            </div>
+            <div class="promo-image hidden" id="3">
+                .....Youtube videos, even if comments are disabled!
+                <br>
+                <br>
+                <img src="images/promo/youtube.png" width="100%">
+            </div>
+            <div class="promo-image hidden" id="4">
+                Have a conversation anywhere online, with anyone!
+                <br>
+                <br>
+                <img src="images/promo/chess.png" width="100%">
+            </div>
+            <div class="promo-image hidden" id="5">
+                Tag your friends to bring them into the conversation:
+                <br>
+                <br>
+                <img src="images/promo/tag.png" width="100%">
+            </div>
+            <div class="promo-image hidden" id="6">
+                Create your account in just moments!
+                <br>
+                <br>
+                <img src="images/promo/newAccount.png" width="100%">
+            </div>
+            <div class="promo-image hidden" id="7">
+                What are you waiting for?
+                <br>
+                <div class="big-button" id="store-link"><a href="https://chrome.google.com/webstore/detail/graffiti/cafgjcioanjpbkimmfjkclchobolbfba" target=false>Chrome Web Store</a></div>
+                <br>
+                <img src="images/promo/noAccount.png" width="100%">
+            </div>
+        </div>
+        
+    </center>
+    <script type="text/javascript" src="src/frontPage.js"></script>
 </body>
 </html>
