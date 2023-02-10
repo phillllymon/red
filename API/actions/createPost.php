@@ -2,12 +2,15 @@
 include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
 include_once("./helpers/secretManager.php");
+include_once("./helpers/processUrl.php");
 function createPost($connection, $inputs) {
     $reply = new stdClass();
 
     if (!checkForData($inputs, ["username", "token", "url", "content"])) {
         return setErrorReply("username, token, url, and content required");
     }
+
+    $goodUrl = processUrl($inputs->url);
 
     $getStatement = "SELECT * FROM users WHERE username=?";
     try {
@@ -34,7 +37,7 @@ function createPost($connection, $inputs) {
     $insertStatement = "INSERT INTO posts (username, url, content) VALUES (?, ?, ?)";
     try {
         $queryObj = $connection->prepare($insertStatement);
-        $queryObj->execute([$inputs->username, $inputs->url, $inputs->content]);
+        $queryObj->execute([$inputs->username, $goodUrl, $inputs->content]);
         $newPostId = $connection->lastInsertId();
         $reply->status = "success";
         $reply->message = "post created";

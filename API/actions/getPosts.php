@@ -1,6 +1,7 @@
 <?php
 include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
+include_once("./helpers/processUrl.php");
 function getPosts($connection, $inputs) {
     $reply = new stdClass();
 
@@ -8,13 +9,15 @@ function getPosts($connection, $inputs) {
         return setErrorReply("url required");
     }
 
+    $goodUrl = processUrl($inputs->url);
+
     $skip = isset($inputs->skip) ? $inputs->skip : 0;
     $limit = isset($inputs->limit) ? $inputs->limit : 1000;
 
     $getStatement = "SELECT * FROM posts WHERE url=? ORDER BY created desc LIMIT {$limit} OFFSET {$skip}";
     try {
         $queryObj = $connection->prepare($getStatement);
-        $queryObj->execute([$inputs->url]);
+        $queryObj->execute([$goodUrl]);
         $reply->status = "success";
         $reply->message = "posts fetched";
         $posts = $queryObj->fetchAll();

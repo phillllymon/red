@@ -1,16 +1,19 @@
 <?php
 
 include_once("helpers/connectToDatabase.php");
+include_once("helpers/processUrl.php");
 function followUp($actionName, $inputs) {
     
     $connection = connectToDatabase();
 
     if ($actionName === "createPost") {
 
+        $goodUrl = processUrl($inputs->url);
+
         // add as follower to this url
         $getStatement = "SELECT * FROM urls WHERE url=?";
         $queryObj = $connection->prepare($getStatement);
-        $queryObj->execute([$inputs->url]);
+        $queryObj->execute([$goodUrl]);
         $existing = $queryObj->fetchAll();
         if (count($existing) < 1) {
             $newArr = [];
@@ -18,14 +21,14 @@ function followUp($actionName, $inputs) {
             $insertStatement = "INSERT INTO urls (url, pretty, followers) VALUES (?, ?, ?)";
             $insertObj = $connection->prepare($insertStatement);
             // TODO: make pretty input (instead of just copying url)
-            $insertObj->execute([$inputs->url, $inputs->url, serialize($newArr)]);
+            $insertObj->execute([$goodUrl, $goodUrl, serialize($newArr)]);
         } else {
             $followers = unserialize($existing[0]["followers"]);
             if (!in_array($inputs->username, $followers)) {
                 array_push($followers, $inputs->username);
                 $updateStatement = "UPDATE urls SET followers=? WHERE url=?";
                 $updateObj = $connection->prepare($updateStatement);
-                $updateObj->execute([serialize($followers), $inputs->url]);
+                $updateObj->execute([serialize($followers), $goodUrl]);
             }
 
             // notify authors that the conversation has continued
@@ -43,7 +46,7 @@ function followUp($actionName, $inputs) {
                         $message = "hello {$follower}:\n\n
                         {$inputs->username} recently added to your GRAFFITI conversation.\n
                         Open GRAFFITI on the following url to see the new post:\n
-                        {$inputs->url}\n\n
+                        {$goodUrl}\n\n
                         Cheers,\n
                         GRAFFITI team\n\n
                         Unfollow the conversation here: https://graffiti.red/unfollow.php?username={$follower}&url={$inputs->url}";
