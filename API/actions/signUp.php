@@ -26,10 +26,11 @@ function signUp($connection, $inputs) {
     $passHash = createPasswordHash($inputs->pass);
     $token = generateRandomToken();
     $tokenHash = createPasswordHash($token);
-    $insertStatement = "INSERT INTO users (username, email, avatar, pass, token) VALUES (?, ?, ?, ?, ?)";
+    $following = [];
+    $insertStatement = "INSERT INTO users (username, email, avatar, pass, token, following) VALUES (?, ?, ?, ?, ?, ?)";
     try {
         $queryObj = $connection->prepare($insertStatement);
-        $queryObj->execute([$inputs->username, $inputs->email, $inputs->avatar, $passHash, $tokenHash]);
+        $queryObj->execute([$inputs->username, $inputs->email, $inputs->avatar, $passHash, $tokenHash, serialize($following)]);
         $reply->status = "success";
         $reply->message = "user added";
         $reply->token = $token;

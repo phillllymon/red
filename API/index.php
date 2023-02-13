@@ -7,13 +7,6 @@ require "helpers/sanitize.php";
 require "actions.php";
 require "afterActions.php";
 
-// TEST ONLY
-// $reply = new stdClass();
-// $reply->temp = "different new response!";
-// echo json_encode($reply);
-// die();
-// END TEST
-
 $inputs = sanitizeAll(json_decode(file_get_contents('php://input')));
 
 $dealbreakers = [
@@ -35,6 +28,11 @@ foreach($dealbreakers as $breaker) {
 $actionToTake = $inputs->action;
 
 echo json_encode(executeAction($actionToTake, $inputs));
+
+// !!!!!!! TODO !!!!!!!!
+// figure out how to end browser session here so user doesn't have to wait for after actions
+
+// anything else we have to do (update data, email notification...)
 followUp($actionToTake, $inputs);
 
 

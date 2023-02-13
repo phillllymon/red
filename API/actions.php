@@ -14,6 +14,10 @@ include_once("actions/changeAvatar.php");
 include_once("actions/deleteAccount.php");
 include_once("actions/checkForUser.php");
 include_once("actions/notifyTaggedUsers.php");
+include_once("actions/getConversations.php");
+include_once("actions/unFollow.php");
+include_once("actions/follow.php");
+
 include_once("actions/oneTimeThing.php");
 
 include_once("helpers/connectToDatabase.php");
@@ -33,7 +37,10 @@ $availableActions = [
     "deleteAccount",    // done
     "checkForUser",     // done
     "notifyTaggedUsers",// done
-    "oneTimeThing"      // ongoing...
+    "getConversations", // done
+    "unFollow",         // done
+    "follow",           // done
+    "oneTimeThing"      // eh
 ];
 
 function executeAction($actionName, $inputs) {
@@ -76,6 +83,12 @@ function executeAction($actionName, $inputs) {
             return notifyTaggedUsers($connection, $inputs);
         case "oneTimeThing":
             return oneTimeThing($connection, $inputs);
+        case "getConversations":
+            return getConversations($connection, $inputs);
+        case "unFollow":
+            return unFollow($connection, $inputs);
+        case "follow":
+            return follow($connection, $inputs);
     }
 }
 

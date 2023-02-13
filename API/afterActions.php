@@ -6,11 +6,95 @@ function followUp($actionName, $inputs) {
     
     $connection = connectToDatabase();
 
+    if ($actionName === "getPosts") {
+        /*
+        set seen as true for this post and this user
+        */
+
+        if (isset($inputs->username) && isset($inputs->token)) {
+            $getStatement = "SELECT * FROM users WHERE username=?";
+            $queryObj = $connection->prepare($getStatement);
+            $queryObj->execute([$inputs->username]);
+            $existingUsers = $queryObj->fetchAll();
+            
+            if (count($existingUsers) == 1) {
+
+                $userRow = $existingUsers[0];
+                if (comparePasswordAgainstHash($inputs->token, $userRow["token"])) {
+
+                    $goodUrl = processUrl($inputs->url);
+                    $following = unserialize($userRow["following"]);
+                    $idx = null;
+                    for ($i = 0; $i < count($following); $i++) {
+                        if ($goodUrl == $following[$i][0]) {
+                            $idx = $i;
+                            break;
+                        }
+                    }
+                    if ($idx != null) {
+                        // array_splice($following, $idx, 1);
+                        // array_push($following, [$goodUrl, true]);
+
+                        $following[$idx][1] = true;
+
+                        $updateStatement = "UPDATE users SET following=? WHERE username=?";
+                        $queryObj = $connection->prepare($updateStatement);
+                        $queryObj->execute([serialize($following), $inputs->username]);
+                    }
+                }
+            }
+        }
+    }
+
     if ($actionName === "createPost") {
+        /*
+        add this url to the urls poster is following
+        set seen false for all other users who follow this url
+        notify all users who follow this url
+        */
 
         $goodUrl = processUrl($inputs->url);
+        $prettyUrl = makePretty($inputs->url);
 
-        // add as follower to this url
+        // add url to urls this user is following in users table
+        $getStatement = "SELECT * FROM users WHERE username=?";
+        $queryObj = $connection->prepare($getStatement);
+        $queryObj->execute([$inputs->username]);
+        $users = $queryObj->fetchAll();
+
+        $userRow = $users[0];
+        $following = unserialize($userRow["following"]);
+        $existingIdx = 0; // only used if we're already following
+        $alreadyFollowing = false;
+        for ($i = 0; $i < count($following); $i++) {
+            $thisUrlRow = $following[$i];
+            if ($thisUrlRow[0] == $goodUrl) {
+                $alreadyFollowing = true;
+                $existingIdx = $i;
+                break;
+            }
+        }
+
+        if ($alreadyFollowing) {
+            // puts at end and makes sure seen is set to true
+            array_splice($following, $existingIdx, 1);
+            array_push($following, [$goodUrl, true]);
+        } else {
+            array_push($following, [$goodUrl, true]);
+        }
+
+        // TODO: decide if this is a good limit.....or redesign this whole system
+        if (count($following) > 50) {
+            array_splice($following, 0, count($following) - 50);
+        }
+
+        $serializedFollowing = serialize($following);
+
+        $updateStatement = "UPDATE users SET following=? WHERE username=?";
+        $queryObj = $connection->prepare($updateStatement);
+        $queryObj->execute([$serializedFollowing, $inputs->username]);
+
+        // add as follower to this url in urls table
         $getStatement = "SELECT * FROM urls WHERE url=?";
         $queryObj = $connection->prepare($getStatement);
         $queryObj->execute([$goodUrl]);
@@ -20,8 +104,7 @@ function followUp($actionName, $inputs) {
             array_push($newArr, $inputs->username);
             $insertStatement = "INSERT INTO urls (url, pretty, followers) VALUES (?, ?, ?)";
             $insertObj = $connection->prepare($insertStatement);
-            // TODO: make pretty input (instead of just copying url)
-            $insertObj->execute([$goodUrl, $goodUrl, serialize($newArr)]);
+            $insertObj->execute([$goodUrl, $prettyUrl, serialize($newArr)]);
         } else {
             $followers = unserialize($existing[0]["followers"]);
             if (!in_array($inputs->username, $followers)) {
@@ -31,7 +114,7 @@ function followUp($actionName, $inputs) {
                 $updateObj->execute([serialize($followers), $goodUrl]);
             }
 
-            // notify authors that the conversation has continued
+            // set as unread for followers and followers that the conversation has continued
             foreach($followers as $follower) {
                 if ($follower != $inputs->username) {
                     $getStatement = "SELECT * FROM users WHERE username=?";
@@ -39,11 +122,33 @@ function followUp($actionName, $inputs) {
                     $getObj->execute([$follower]);
                     $existingUsers = $getObj->fetchAll();
                     if (count($existingUsers) == 1) {
-                        $email = $existingUsers[0]["email"];
+                        $userRow = $existingUsers[0];
+
+                        // mark as unread
+                        $pagesUserFollows = unserialize($userRow["following"]);
+                        $idx = null;
+                        for ($i = 0; $i < count($pagesUserFollows); $i++) {
+                            if ($pagesUserFollows[$i][0] == $goodUrl) {
+                                $idx = $i;
+                                break;
+                            }
+                        }
+                        if ($idx != null) {
+                            array_splice($pagesUserFollows, $idx, 1);
+                            array_push($pagesUserFollows, [$goodUrl, false]);
+
+                            $updateStatement = "UPDATE users SET following=? WHERE username=?";
+                            $queryObj = $connection->prepare($updateStatement);
+                            $queryObj->execute([serialize($pagesUserFollows), $userRow["username"]]);
+                        }
+
+                        // email notification
+                        $email = $userRow["email"];
 
                         $to      = $email;
                         $subject = "GRAFFITI reply from {$inputs->username}";
-                        $message = "hello {$follower}:\n\n
+                        $message = 
+                        "hello {$follower}:\n\n
                         {$inputs->username} recently added to your GRAFFITI conversation.\n
                         Open GRAFFITI on the following url to see the new post:\n
                         {$goodUrl}\n\n

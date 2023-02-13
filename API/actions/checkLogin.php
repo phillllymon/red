@@ -31,6 +31,16 @@ function checkLogin($connection, $inputs) {
         $reply->message = "user not logged in";
         $reply->answer = false;
     } else {
+
+        $following = unserialize($existingUsers[0]["following"]);
+        $numUnreads = 0;
+        foreach($following as $urlRow) {
+            if (!$urlRow[1]) {
+                $numUnreads++;
+            }
+        }
+        $reply->numUnreads = $numUnreads;
+
         $reply->status = "success";
         $reply->message = "user logged in";
         $reply->answer = true;

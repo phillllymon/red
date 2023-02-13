@@ -37,6 +37,16 @@ function logIn($connection, $inputs) {
         $reply->message = "user logged in";
         $reply->avatar = $existingUsers[0]["avatar"];
         $reply->token = $token;
+
+        $following = unserialize($existingUsers[0]["following"]);
+        $numUnreads = 0;
+        foreach($following as $urlRow) {
+            if (!$urlRow[1]) {
+                $numUnreads++;
+            }
+        }
+        $reply->numUnreads = $numUnreads;
+
     } catch (PDOException $pe) {
         return setErrorReply("database error");
     }

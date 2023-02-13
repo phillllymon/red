@@ -11,5 +11,5 @@ if (window.navigator.userAgent.toLowerCase().includes("mobi")) {
             currentPic = 1;
         }
         document.getElementById(`${currentPic}`).classList.remove("hidden");
-    }, 5000);
+    }, 8000);
 }
