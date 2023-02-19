@@ -47,6 +47,8 @@ function oneTimeThing($connection, $inputs) {
 
     // $reply->urls = $allUrls;
 
+
+
     // $usersFollowing = new stdClass();
 
     // foreach ($allUrls as $urlRow) {
@@ -73,16 +75,13 @@ function oneTimeThing($connection, $inputs) {
 
     // foreach ($allUsers as $userRow) {
     //     $username = $userRow["username"];
-    //     if (!isset($usersFollowing->$username)) {
-    //         $usersFollowing->$username = [];
-    //     }
-    //     $serializedFollowing = serialize($usersFollowing->$username);
-    //     $updateStatement = "UPDATE users SET following=? WHERE username=?";
+    //     $newArray = [];
+    //     $updateStatement = "UPDATE users SET unfollowTokens=? WHERE username=?";
     //     try {
     //         $queryObj = $connection->prepare($updateStatement);
-    //         $queryObj->execute([$serializedFollowing, $username]);
+    //         $queryObj->execute([serialize($newArray), $username]);
     //     } catch (PDOException $pe) {
-    //         return setErrorReply("database error setting user following {$username}");
+    //         return setErrorReply("database error");
     //     }
     // }
 

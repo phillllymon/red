@@ -32,6 +32,18 @@ function deleteAccount($connection, $inputs) {
         return setErrorReply("user not logged in");
     }
 
+    // NEW here -----------------------------
+    $deleteStatement = "DELETE FROM following WHERE username=?";
+    try {
+        $queryObj = $connection->prepare($deleteStatement);
+        $queryObj->execute([$inputs->username]);
+        $reply->status = "success";
+        $reply->message = "account deleted";
+    } catch (PDOException $pe) {
+        return setErrorReply("database error with following table");
+    }
+    // end NEW ------------------------------
+
     $deleteStatement = "DELETE FROM users WHERE username=?";
     try {
         $queryObj = $connection->prepare($deleteStatement);
@@ -39,7 +51,7 @@ function deleteAccount($connection, $inputs) {
         $reply->status = "success";
         $reply->message = "account deleted";
     } catch (PDOException $pe) {
-        return setErrorReply("database error");
+        return setErrorReply("database error with users table");
     }
 
     return $reply;

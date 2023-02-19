@@ -2,6 +2,7 @@
 include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
 include_once("./helpers/secretManager.php");
+include_once("./helpers/getNumUnreads.php");
 function checkLogin($connection, $inputs) {
     $reply = new stdClass();
 
@@ -32,14 +33,18 @@ function checkLogin($connection, $inputs) {
         $reply->answer = false;
     } else {
 
-        $following = unserialize($existingUsers[0]["following"]);
-        $numUnreads = 0;
-        foreach($following as $urlRow) {
-            if (!$urlRow[1]) {
-                $numUnreads++;
-            }
-        }
-        $reply->numUnreads = $numUnreads;
+        // NEW here -----------------------
+        $reply->numUnreads = getNumUnreads($inputs->username, $connection);
+        // end NEW ------------------------
+
+        // $following = unserialize($existingUsers[0]["following"]);
+        // $numUnreads = 0;
+        // foreach($following as $urlRow) {
+        //     if (!$urlRow[1]) {
+        //         $numUnreads++;
+        //     }
+        // }
+        // $reply->numUnreads = $numUnreads;
 
         $reply->status = "success";
         $reply->message = "user logged in";

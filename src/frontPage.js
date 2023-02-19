@@ -2,7 +2,7 @@
 if (window.navigator.userAgent.toLowerCase().includes("mobi")) {
     document.body.innerHTML = "graffiti not for phones";
 } else {
-    const numPics = 7;
+    const numPics = 8;
     let currentPic = 1;
     setInterval(() => {
         document.getElementById(`${currentPic}`).classList.add("hidden");

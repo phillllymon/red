@@ -3,7 +3,9 @@ include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
 include_once("./helpers/secretManager.php");
 include_once("./helpers/processUrl.php");
+include_once("./helpers/processContent.php");
 function createPost($connection, $inputs) {
+
     $reply = new stdClass();
 
     if (!checkForData($inputs, ["username", "token", "url", "content"])) {
@@ -34,10 +36,12 @@ function createPost($connection, $inputs) {
         return setErrorReply("token invalid");
     }
 
+    $postContent = processContent($inputs->content);
+
     $insertStatement = "INSERT INTO posts (username, url, content) VALUES (?, ?, ?)";
     try {
         $queryObj = $connection->prepare($insertStatement);
-        $queryObj->execute([$inputs->username, $goodUrl, $inputs->content]);
+        $queryObj->execute([$inputs->username, $goodUrl, $postContent]);
         $newPostId = $connection->lastInsertId();
         $reply->status = "success";
         $reply->message = "post created";

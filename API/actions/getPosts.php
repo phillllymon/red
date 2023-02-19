@@ -42,7 +42,7 @@ function getPosts($connection, $inputs) {
                 if (count($authors) > 0) {
                     $avatars->{$post["username"]} = $authors[0]["avatar"];
                 } else {
-                    $avatars->{$post["username"]} = "default";
+                    $avatars->{$post["username"]} = "&#128100;";
                 }
             }
         }

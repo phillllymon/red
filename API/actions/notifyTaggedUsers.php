@@ -1,6 +1,8 @@
 <?php
 include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
+include_once("./helpers/followUrl.php");
+include_once("./helpers/processUrl.php");
 
 function notifyTaggedUsers($connection, $inputs) {
 
@@ -12,6 +14,11 @@ function notifyTaggedUsers($connection, $inputs) {
 
     $tags = json_decode($inputs->tags);
     foreach ($tags as $user) {
+
+        // NEW here ---------------------------------
+        followUrl($user, processUrl($inputs->url), $connection);
+        // end NEW ------(but keeping below)--------------------
+
         $getStatement = "SELECT * FROM users WHERE username=?";
         try {
             $queryObj = $connection->prepare($getStatement);

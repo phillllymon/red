@@ -1,5 +1,7 @@
 <?php
 
+include_once("API/helpers/unFollowUrl.php");
+
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
@@ -10,25 +12,34 @@ $database = "u906128965_db_graffiti";
 
 $connection = new PDO("mysql:host=$hostname;dbname=$database", $username, $password);
 
-$getStatement = "SELECT * FROM urls WHERE url=?";
+$url = $_GET["url"];
+$username = $_GET["username"];
+$token = $_GET["token"];
+
+$getStatement = "SELECT * FROM users WHERE username=?";
 $queryObj = $connection->prepare($getStatement);
-$queryObj->execute([$_GET["url"]]);
+$queryObj->execute([$username]);
 $existing = $queryObj->fetchAll();
 
-if (count($existing) == 1) {
-    $followers = unserialize($existing[0]["followers"]);
-    $newArr = [];
-    foreach($followers as $follower) {
-        if ($follower != $_GET["username"]) {
-            array_push($newArr, $follower);
-        }
-    }
-    $updateStatement = "UPDATE urls SET followers=? WHERE url=?";
-    $updateObj = $connection->prepare($updateStatement);
-    $updateObj->execute([serialize($newArr), $_GET["url"]]);
-    echo "Success! Unless you rejoin the conversation, you will no longer receive notifications for this page.";
-} else {
+if (count($existing) != 1) {
     echo "Seems to be an error. Sorry about that.";
+    die();
 }
+
+$tokens = unserialize($existing[0]["unfollowTokens"]);
+$tokenValid = false;
+foreach($tokens as $userToken) {
+    if ($token == $userToken) {
+        $tokenValid = true;
+    }
+}
+if (!$tokenValid) {
+    echo "Seems to be an error or this link has expired. Sorry about that. You can still unfollow any conversation in the GRAFFITI extension.";
+    die();
+}
+
+unFollowUrl($username, $url, $connection);
+
+echo "Success! Unless you rejoin the conversation, you will no longer receive notifications for this page.";
 
 ?>
