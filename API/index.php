@@ -27,13 +27,18 @@ foreach($dealbreakers as $breaker) {
 
 $actionToTake = $inputs->action;
 
+
+
 echo json_encode(executeAction($actionToTake, $inputs));
 
-// !!!!!!! TODO !!!!!!!!
-// figure out how to end browser session here so user doesn't have to wait for after actions
 
-// anything else we have to do (update data, email notification...)
+// // !!!!!!! TODO !!!!!!!!
+// // figure out how to end browser session here so user doesn't have to wait for after actions
+
+// // anything else we have to do (update data, email notification...)
+
+// test only
 followUp($actionToTake, $inputs);
-
+// end test
 
 ?>

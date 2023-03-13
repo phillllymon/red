@@ -17,6 +17,7 @@ include_once("actions/notifyTaggedUsers.php");
 include_once("actions/getConversations.php");
 include_once("actions/unFollow.php");
 include_once("actions/follow.php");
+include_once("actions/getPreviews.php");
 
 include_once("actions/oneTimeThing.php");
 
@@ -40,6 +41,7 @@ $availableActions = [
     "getConversations", // done
     "unFollow",         // done
     "follow",           // done
+    "getPreviews",      // done
     "oneTimeThing"      // eh
 ];
 
@@ -89,6 +91,8 @@ function executeAction($actionName, $inputs) {
             return unFollow($connection, $inputs);
         case "follow":
             return follow($connection, $inputs);
+        case "getPreviews":
+            return getPreviews($connection, $inputs);
     }
 }
 

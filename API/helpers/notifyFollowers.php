@@ -1,7 +1,10 @@
 <?php
 
 include_once("secretManager.php");
+include_once("sendEmail.php");
 function notifyFollowers($url, $author, $connection) {
+
+    sendEmail($emailRecipients, $emailContents, $emailSubjects);
     
     $getStatement = "SELECT * FROM following WHERE url=?";
     try {
@@ -11,6 +14,10 @@ function notifyFollowers($url, $author, $connection) {
     } catch (PDOException $pe) {
         return "database error";
     }
+
+    $emailRecipients = [];
+    $emailSubjects = [];
+    $emailContents = [];
 
     foreach ($existingFollows as $followingRow) {
         $username = $followingRow["username"];
@@ -44,9 +51,8 @@ function notifyFollowers($url, $author, $connection) {
                 }
 
                 $email = $userRow["email"];
-                $to = $email;
                 $subject = "GRAFFITI reply from {$author}";
-                $message = 
+                $message =
                 "hello {$username}:\n\n
                 {$author} recently added to your GRAFFITI conversation.\n
                 Open GRAFFITI on the following url to see the new post:\n
@@ -54,15 +60,19 @@ function notifyFollowers($url, $author, $connection) {
                 Cheers,\n
                 GRAFFITI team\n\n
                 Unfollow the conversation here: https://graffiti.red/unfollow.php?username={$username}&url={$url}&token={$newToken}";
-                $headers = "From: notifications@graffiti.red" . "\r\n" .
-                "Reply-To: info@graffiti.red" . "\r\n" .
-                "X-Mailer: PHP/" . phpversion();
 
-                mail($to, $subject, $message, $headers);
+                // $message = "{$author} has added to your conversation";
+
+                array_push($emailRecipients, $email);
+                array_push($emailSubjects, $subject);
+                array_push($emailContents, $message);
+
             }
         }
         
     }
+    sendEmail($emailRecipients, $emailContents, $emailSubjects);
+
 }
 
 ?>

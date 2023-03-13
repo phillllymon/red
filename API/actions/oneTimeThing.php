@@ -3,15 +3,13 @@
 /*
 Instructions:
 1. Uncomment/edit the code below to your liking.
-2. Edit oneTimeThing.html (top level) to uncomment out the script.
-3. Upload oneTimeThing.html, this file, and oneTimeThing.js (top level).
+2. Upload oneTimeThing.html and oneTimeThing.js (top level).
+3. Upload this file to actions folder.
 4. Visit graffiti.red/oneTimeThing - look in the console to see if it worked.
 5. Verify action in other ways, maybe look at the tables in admin?
 6. Make adjustments, upload again, repeat until it worked. Hopefully you don't screw anything up too badly.
 7. Comment out code below.
-8. Comment out script in oneTimeThing.html.
-9. Upload oneTimeThing.html.
-10. Delete oneTimeThing.js and this file from server. (For extra security)
+8. Delete oneTimeThing.js, oneTimeThing.html, and this file from server. (For extra security)
 */
 
 include_once("./helpers/setErrorReply.php");
@@ -34,16 +32,53 @@ function oneTimeThing($connection, $inputs) {
     // }
     // // end $allPosts
 
-    // $urls = new stdClass();
 
-    // $getStatement = "SELECT * FROM urls";
-    // try {
-    //     $queryObj = $connection->prepare($getStatement);
-    //     $queryObj->execute([]);
-    //     $allUrls = $queryObj->fetchAll();
-    // } catch (PDOException $pe) {
-    //     return setErrorReply("database error getting all urls");
-    // }
+    $getStatement = "SELECT * FROM urls";
+    try {
+        $queryObj = $connection->prepare($getStatement);
+        $queryObj->execute([]);
+        $allUrls = $queryObj->fetchAll();
+    } catch (PDOException $pe) {
+        return setErrorReply("database error getting all urls");
+    }
+
+    $num = 0;
+    $updated = 0;
+    $statuses = [];
+
+    foreach($allUrls as $url) {
+        if (!$url["preview"]) {
+            $num++;
+
+            $target = urlencode($url["url"]);
+            $key = "1f6a67dccd0d0a62be891ebe9a9618da";
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://api.linkpreview.net?key={$key}&q={$target}");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $output = json_decode(curl_exec($ch));
+            $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            curl_close($ch);
+
+            if ($status == 200) {
+                $updateStatement = "UPDATE urls SET preview=? WHERE url=?";
+                try {
+                    $queryObj = $connection->prepare($updateStatement);
+                    $queryObj->execute([serialize(serialize($output)), $url["url"]]);
+                } catch (PDOException $pe) {
+                    return setErrorReply("database error");
+                }
+                $updated++;
+            } else {
+                array_push($statuses, $status);
+            }
+        }
+
+        
+    }
+    $reply->statuses = $statuses;
+    $reply->updated = $updated;
+    $reply->num = $num;
 
     // $reply->urls = $allUrls;
 

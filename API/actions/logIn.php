@@ -44,15 +44,6 @@ function logIn($connection, $inputs) {
         $reply->numUnreads = getNumUnreads($inputs->username, $connection);
         // end NEW ------------------------
 
-        // $following = unserialize($existingUsers[0]["following"]);
-        // $numUnreads = 0;
-        // foreach($following as $urlRow) {
-        //     if (!$urlRow[1]) {
-        //         $numUnreads++;
-        //     }
-        // }
-        // $reply->numUnreads = $numUnreads;
-
     } catch (PDOException $pe) {
         return setErrorReply("database error");
     }

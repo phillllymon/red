@@ -69,29 +69,6 @@ function getConversations($connection, $inputs) {
 
     // end NEW -------------------------------
 
-    // $info = new stdClass();
-    // $info->icons = new stdClass();
-
-    // $following = unserialize($existingUsers[0]["following"]);
-    // foreach($following as $urlRow) {
-    //     $url = $urlRow[0];
-    //     $getStatement = "SELECT * FROM urls WHERE url=?";
-    //     try {
-    //         $queryObj = $connection->prepare($getStatement);
-    //         $queryObj->execute([$url]);
-    //         $existingUrls = $queryObj->fetchAll();
-    //     } catch (PDOException $pe) {
-    //         return setErrorReply("database error");
-    //     }
-    //     if (count($existingUrls) == 1) {
-    //         // cool, we're in business
-    //         $urlTableRow = $existingUrls[0];
-    //         $info->$url = new stdClass();
-    //         $info->$url->pretty = $urlTableRow["pretty"];
-    //         $info->$url->icon = determineIcon($url);
-    //     }
-    // }
-
     $reply->info = $info;
     $reply->conversations = $following;
     
