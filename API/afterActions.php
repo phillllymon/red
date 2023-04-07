@@ -53,7 +53,7 @@ function followUp($actionName, $inputs) {
         // 3. Make sure author is following this url
         followUrl($inputs->username, $goodUrl, $connection);
         // 4. Notify other followers that this url has new post
-        notifyFollowers($goodUrl, $inputs->username, $connection);
+        notifyFollowers($goodUrl, $inputs->username, $connection, isset($inputs->tags) ? $inputs->tags : null);
         
 
     }

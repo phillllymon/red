@@ -4,6 +4,9 @@ header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
 include_once("API/helpers/sendEmailShouldWork.php");
+include_once("API/helpers/sendAlert.php");
+
+sendAlert("top level call", "starting", $_POST["emailInfo"]);
 
 $response = new stdClass();
 $response->status = "it worked I guess";

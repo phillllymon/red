@@ -62,7 +62,8 @@ function makeLink($str) {
 }
 
 function looksLikeUrl($str) {
-    if (implode("", explode(".", $str)) != $str) {
+    $parts = explode(".", $str);
+    if (count($parts) == 2) {
         if (implode("", explode(" ", $str)) == $str) {
             if (implode("", explode("..", $str)) == $str) {
                 if (!is_numeric($str)) {

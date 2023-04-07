@@ -4,6 +4,10 @@
     use PHPMailer\PHPMailer\PHPMailer;
 
 // returns true if email sent successfully, false otherwise
+/*
+for unknown reason, this email method only succeeds if the original API call was to the top level
+Because of that, we have topLevelEmail.php in the root folder that calls this function.
+*/
 function sendEmailShouldWork($recipient, $content, $subject, $headers = null) {
 
     $mail = new PHPMailer(true);
