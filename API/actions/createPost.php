@@ -58,6 +58,26 @@ function createPost($connection, $inputs) {
         return setErrorReply("new post could not be retrieved");
     }
 
+    // make sure there's an entry in urls
+    $getStatement = "SELECT * FROM urls WHERE url=?";
+    try {
+        $queryObj = $connection->prepare($getStatement);
+        $queryObj->execute([$goodUrl]);
+        $existingUrls = $queryObj->fetchAll()[0];
+    } catch (PDOException $pe) {
+        return setErrorReply("database error");
+    }
+
+    if (count($existingUrls) != 1) {
+        $insertStatement = "INSERT INTO urls (url, pretty) VALUES (?, ?)";
+        try {
+            $queryObj = $connection->prepare($insertStatement);
+            $queryObj->execute([$goodUrl, makePretty($goodUrl)]);
+        } catch (PDOException $pe) {
+            return setErrorReply("database error");
+        }
+    }
+
     $reply->post = $newPost;
 
     return $reply;

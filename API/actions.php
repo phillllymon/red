@@ -18,6 +18,8 @@ include_once("actions/getConversations.php");
 include_once("actions/unFollow.php");
 include_once("actions/follow.php");
 include_once("actions/getPreviews.php");
+include_once("actions/confirmEmail.php");
+include_once("actions/resendEmail.php");
 
 include_once("actions/oneTimeThing.php");
 
@@ -42,6 +44,8 @@ $availableActions = [
     "unFollow",         // done
     "follow",           // done
     "getPreviews",      // done
+    "resendEmail",      // UNTESTED
+    "confirmEmail",     // UNTESTED
     "oneTimeThing"      // eh
 ];
 
@@ -93,6 +97,10 @@ function executeAction($actionName, $inputs) {
             return follow($connection, $inputs);
         case "getPreviews":
             return getPreviews($connection, $inputs);
+        case "confirmEmail":
+            return confirmEmail($connection, $inputs);
+        case "resendEmail":
+            return resendEmail($connection, $inputs);
     }
 }
 

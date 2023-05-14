@@ -20,6 +20,7 @@ function checkForUser($connection, $inputs) {
     $reply->status = "success";
     if (count($existingUsers) == 1) {
         $reply->exists = true;
+        $reply->username = $existingUsers[0]["username"];
     } else { 
         $reply->exists = false;
     }

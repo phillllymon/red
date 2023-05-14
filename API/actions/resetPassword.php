@@ -2,6 +2,7 @@
 include_once("./helpers/checkForData.php");
 include_once("./helpers/setErrorReply.php");
 include_once("./helpers/secretManager.php");
+include_once("./helpers/sendEmail.php");
 function resetPassword($connection, $inputs) {
 
     $reply = new stdClass();
@@ -21,7 +22,7 @@ function resetPassword($connection, $inputs) {
         return setErrorReply("database error");
     }
 
-    if (count($existingUsers) != 1) {
+    if (count($existingUsers) < 1) {
         return setErrorReply("user not found");
     }
 
@@ -51,7 +52,9 @@ function resetPassword($connection, $inputs) {
     "Reply-To: info@graffiti.red" . "\r\n" .
     "X-Mailer: PHP/" . phpversion();
 
-    mail($to, $subject, $message, $headers);
+    // mail($to, $subject, $message, $headers);
+
+    sendEmail([$to], [$message], [$subject]);
 
     return $reply;
 }
