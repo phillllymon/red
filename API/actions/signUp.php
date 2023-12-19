@@ -61,7 +61,7 @@ function signUp($connection, $inputs) {
     $tokenHash = createPasswordHash($token);
 
     // generate token for email confirmation
-    $confirmToken = generateRandomToken(8);
+    $confirmToken = generateFriendlyCode(8);
     $confirmTokenHash = createPasswordHash($confirmToken);
 
     if ($overwritePendingUser) {

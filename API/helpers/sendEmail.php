@@ -26,9 +26,11 @@ function sendEmail($recipients, $contents, $subjects) {
     // $headers .= 'X-Mailer: PHP/\r\n' . phpversion();
 
     for ($i = 0; $i < count($recipients); $i++) {
+
         $to = $recipients[$i];
         $cont = $contents[$i];
         $sub = $subjects[$i];
+
         if (mail($to, $sub, $cont, $headers)) {
             array_push($emailReport, ["SUCCESS", $to, $cont]);
         } else {

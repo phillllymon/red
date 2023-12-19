@@ -23,9 +23,15 @@ function logIn($connection, $inputs) {
         return setErrorReply("user not found");
     }
 
-    $existingPassHash = $existingUsers[0]["pass"];
+    $userRow = $existingUsers[0];
+
+    $existingPassHash = $userRow["pass"];
     if (!comparePasswordAgainstHash($inputs->pass, $existingPassHash)) {
         return setErrorReply("invalid password");
+    }
+
+    if ($userRow["accountStatus"] != "original" && $userRow["accountStatus"] != "confirmed") {
+        return setErrorReply("account not confirmed");
     }
 
     $token = generateRandomToken();

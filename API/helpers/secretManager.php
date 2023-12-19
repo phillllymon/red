@@ -24,4 +24,18 @@ function generateRandomToken($length = 50) {
     return $newToken;
 }
 
+function generateFriendlyCode($length = 8) {
+    $validChars = [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+    ];
+
+    $numChars = count($validChars);
+    $newCode = "";
+    for ($i = 0; $i < $length; $i++) {
+        $newCode = $newCode.$validChars[rand(0, $numChars - 1)];
+    }
+
+    return $newCode;
+}
+
 ?>

@@ -29,23 +29,25 @@ function resendEmail($connection, $inputs) {
         setErrorReply("user already confirmed");
     }
 
-    $confirmToken = generateRandomToken(8);
+    $confirmToken = generateFriendlyCode(8);
     $confirmTokenHash = createPasswordHash($confirmToken);
 
-    $updateStatement = "UPDATE users SET status=? WHERE username=?";
+    $updateStatement = "UPDATE users SET accountStatus=? WHERE username=?";
     try {
         $queryObj = $connection->prepare($updateStatement);
         $queryObj->execute([$confirmTokenHash, $inputs->username]);
+        $reply->info = "confirm token updated";
     } catch (PDOException $pe) {
         return setErrorReply("database error");
     }
 
+    $email = $existingUsers[0]["email"];
     $subject = "New GRAFFITI confirmation code";
     $message = "Hello {$inputs->username}:\r\n
     Welcome to GRAFFITI! Please confirm your email with the following code:\r\n 
     {$confirmToken}\r\n\r\nCheers,\r\n GRAFFITI team";
 
-    sendEmail([$inputs->email], [$message], [$subject]);
+    sendEmail([$email], [$message], [$subject]);
 
     $reply->status = "success";
     $reply->message = "new email sent";

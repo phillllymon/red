@@ -48,13 +48,16 @@ function followUp($actionName, $inputs) {
         $goodUrl = processUrl($inputs->url);
         // 1. Update timestamp on this url
         updateUrlTimestamp($goodUrl, $connection);
-        // 2. Mark url as unread for followers
-        markUrlAsUnread($goodUrl, $inputs->username, $connection);
-        // 3. Make sure author is following this url
+        
+        // 2. Make sure author is following this url
         followUrl($inputs->username, $goodUrl, $connection);
-        // 4. Notify other followers that this url has new post
+    
+        // 3. Notify other followers that this url has new post
         notifyFollowers($goodUrl, $inputs->username, $connection, isset($inputs->tags) ? $inputs->tags : null);
         
+        // 4. Mark url as unread for followers
+        // note: make sure this step comes after notifyFollowers because that's where tagged users follow
+        markUrlAsUnread($goodUrl, $inputs->username, $connection);
 
     }
 }

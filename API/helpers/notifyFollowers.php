@@ -2,6 +2,7 @@
 
 include_once("secretManager.php");
 include_once("sendEmail.php");
+include_once("followUrl.php");
 function notifyFollowers($url, $author, $connection, $tags) {
     
     $getStatement = "SELECT * FROM following WHERE url=?";
@@ -33,6 +34,9 @@ function notifyFollowers($url, $author, $connection, $tags) {
             if (count($existingUsers) == 1) {
                 $userRow = $existingUsers[0];
                 $unfollowTokens = unserialize($userRow["unfollowTokens"]);
+                if (!is_array($unfollowTokens)) {
+                    $unfollowTokens = [];
+                }
                 $newToken = generateRandomToken(10);
                 array_push($unfollowTokens, $newToken);
 
@@ -86,6 +90,11 @@ function notifyFollowers($url, $author, $connection, $tags) {
             }
 
             if (count($existingUsers) == 1) {
+
+                // make sure this user is following the url
+                followUrl($user, $url, $connection);
+
+
                 $email = $existingUsers[0]["email"];
                 $subject = "You've been tagged in a GRAFFITI post";
 

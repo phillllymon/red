@@ -44,8 +44,8 @@ $availableActions = [
     "unFollow",         // done
     "follow",           // done
     "getPreviews",      // done
-    "resendEmail",      // UNTESTED
-    "confirmEmail",     // UNTESTED
+    "resendEmail",      // done
+    "confirmEmail",     // done
     "oneTimeThing"      // eh
 ];
 

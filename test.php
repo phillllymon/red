@@ -3,6 +3,26 @@
 header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
+include_once("./API/helpers/connectToDatabase.php");
+include_once("./API/helpers/notifyFollowers.php");
+
+$url = "https://onehundredmain.com/";
+$author = "MrMagoo";
+$connection = connectToDatabase();
+$tags = json_encode(["GrannyBendy"]);
+
+try {
+    notifyFollowers($url, $author, $connection, $tags);
+    echo "think it worked";
+} catch (PDOException $pe) {
+    echo "not happening boss :(";
+}
+
+
 
 // $testStrings = [
 //     "graffiti.red",
@@ -23,24 +43,24 @@ header("Access-Control-Allow-Origin: *");
 
 // /*
 
-$headers  = "From: notifications@graffiti.red\r\n"; 
-$headers .= "X-Sender: notifications@graffiti.red\r\n";
-// $headers .= "X-Priority: 1\n"; // Urgent message!
-$headers .= "Return-Path: info@graffiti.red\r\n";
-// $headers .= "MIME-Version: 1.0\r\n";
-// $headers .= "Content-Type: text/html; charset=utf-8\r\n";
-// $headers .= "Content-Transfer-Encoding: base64\r\n";
-// $headers .= 'X-Mailer: PHP/\r\n' . phpversion();
+// $headers  = "From: notifications@graffiti.red\r\n"; 
+// $headers .= "X-Sender: notifications@graffiti.red\r\n";
+// // $headers .= "X-Priority: 1\n"; // Urgent message!
+// $headers .= "Return-Path: info@graffiti.red\r\n";
+// // $headers .= "MIME-Version: 1.0\r\n";
+// // $headers .= "Content-Type: text/html; charset=utf-8\r\n";
+// // $headers .= "Content-Transfer-Encoding: base64\r\n";
+// // $headers .= 'X-Mailer: PHP/\r\n' . phpversion();
 
-$to = "rparkerharris@gmail.com";
-$sub = "fancy subject";
-$content = "This is my message\r\nThis is the second line";
+// $to = "rparkerharris@gmail.com";
+// $sub = "fancy subject";
+// $content = "This is my message\r\nThis is the second line";
 
-if (mail($to, $sub, $content, $headers)) {
-    echo "SUCCESS";
-} else {
-    echo "FAIL";
-}
+// if (mail($to, $sub, $content, $headers)) {
+//     echo "SUCCESS";
+// } else {
+//     echo "FAIL";
+// }
 
 // include_once("API/helpers/sendAlert.php");
 // include_once("API/helpers/sendEmail.php");

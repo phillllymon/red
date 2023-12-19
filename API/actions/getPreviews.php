@@ -31,7 +31,26 @@ function getPreviews($connection, $inputs) {
             $urlRow = $allUrlsFound[0];
             $urlObj = new stdClass();
             if (isset($urlRow["preview"])) {
-                $urlObj->preview = $urlRow["preview"];
+                // $urlObj->preview = $urlRow["preview"];
+                $urlObj->preview = unserialize($urlRow["preview"]);
+
+                // test only
+                $reply->title = unserialize($urlRow["preview"])->title;
+                $reply->image = unserialize($urlRow["preview"])->image;
+
+                $target = urlencode($urlKey);
+                $key = "1f6a67dccd0d0a62be891ebe9a9618da";
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, "https://api.linkpreview.net?key={$key}&q={$target}");
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                $output = json_decode(curl_exec($ch));
+                $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+
+                $reply->test = $output;
+
+                // end test
             }
             $urlObj->id = $urlRow["id"];
             $urlObj->pretty = $urlRow["pretty"];
